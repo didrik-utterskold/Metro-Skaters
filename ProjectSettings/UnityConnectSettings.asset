@@ -12,11 +12,7 @@ UnityConnectSettings:
   m_DashboardUrl: https://dashboard.unity3d.com
   m_TestInitMode: 0
   InsightsSettings:
-<<<<<<< HEAD
     m_EngineDiagnosticsEnabled: 0
-=======
-    m_EngineDiagnosticsEnabled: 1
->>>>>>> b2cc0d92b487e9ab777484ddf0ca360d2f51e063
     m_Enabled: 0
   CrashReportingSettings:
     serializedVersion: 2

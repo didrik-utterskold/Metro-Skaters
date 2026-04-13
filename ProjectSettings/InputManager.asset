@@ -293,9 +293,6 @@ InputManager:
     type: 0
     axis: 0
     joyNum: 0
-<<<<<<< HEAD
-  m_UsePhysicalKeys: 1
-=======
   - serializedVersion: 3
     m_Name: Enable Debug Button 1
     descriptiveName: 
@@ -488,4 +485,4 @@ InputManager:
     type: 2
     axis: 5
     joyNum: 0
->>>>>>> b2cc0d92b487e9ab777484ddf0ca360d2f51e063
+  m_UsePhysicalKeys: 1
