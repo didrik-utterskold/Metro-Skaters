@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
+    // Using SerializeField to access the variables in the inspector
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
@@ -17,7 +18,6 @@ public class PlayerCamera : MonoBehaviour {
 
     private void Update()
     {
-
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
