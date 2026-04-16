@@ -4,9 +4,11 @@ public class PlayerMovement: MonoBehaviour
 {
     // Using headers to organise the variables in the inspector
     [Header("Movement")]
-    [SerializeField] private float moveSpeed;
 
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float sprintingSpeed;
     [SerializeField] private float groundDrag;
+    private float moveSpeed;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -19,6 +21,7 @@ public class PlayerMovement: MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+    bool isSprinting;
 
     Vector3 moveDirection;
 
@@ -34,6 +37,7 @@ public class PlayerMovement: MonoBehaviour
     private void Update()
     {
         HandleInput();
+        
     }
 
     // Run every physics update
@@ -59,12 +63,27 @@ public class PlayerMovement: MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
     }
 
     private void MovePlayer()
     {
+        HandleSprinting();
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
+    }
+
+    // Check if the player is sprinting and adjust the move speed accordingly
+    private void HandleSprinting() 
+    {
+        if (isSprinting) 
+        {
+            moveSpeed = sprintingSpeed;
+        } 
+        else 
+        {
+            moveSpeed = walkingSpeed;
+        }
     }
 
     // Limit the speed within reasonable intervals

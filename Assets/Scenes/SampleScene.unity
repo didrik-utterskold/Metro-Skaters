@@ -1010,7 +1010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfed0ccd1ac4d345882c86f744c06fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 7
+  walkingSpeed: 7
+  sprintingSpeed: 14
   groundDrag: 10
   groundCheck: {fileID: 396855538}
   groundDistance: 0.3
@@ -1018,7 +1019,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
-  grounded: 0
   orientation: {fileID: 212212210}
 --- !u!1 &1787743755
 GameObject:
