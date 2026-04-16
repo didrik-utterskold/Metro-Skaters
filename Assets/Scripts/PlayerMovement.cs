@@ -9,26 +9,27 @@ public class PlayerMovement: MonoBehaviour
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
     [SerializeField] private float groundDrag;
+    [SerializeField] private Transform orientation;
     private float moveSpeed;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance;
-    [SerializeField] private float playerHeight;
     [SerializeField] private LayerMask whatIsGround;
 
+    [Header("Jumping")]
     [SerializeField] private float jumpForce = 5f;
     bool grounded;
 
-    [SerializeField] private Transform orientation;
-
+    [Header("Input")]
     [SerializeField] InputAction jump;
+    [SerializeField] InputAction movementInput;
+    [SerializeField] InputAction sprint;
+
 
     float horizontalInput;
     float verticalInput;
     bool isSprinting;
-
-    
 
     Vector3 moveDirection;
 
@@ -43,7 +44,16 @@ public class PlayerMovement: MonoBehaviour
 
     private void OnEnable()
     {
+        movementInput.Enable();
         jump.Enable();
+        sprint.Enable();
+    }
+
+    private void OnDisable()
+    {
+        movementInput.Disable();
+        jump.Disable();
+        sprint.Disable();
     }
 
     private void Update()
@@ -70,7 +80,6 @@ public class PlayerMovement: MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-            
 
         MovePlayer();
         SpeedControl();
@@ -78,9 +87,10 @@ public class PlayerMovement: MonoBehaviour
 
     private void HandleInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        isSprinting = Input.GetKey(KeyCode.LeftShift);
+        Vector2 movementInput = this.movementInput.ReadValue<Vector2>();
+        horizontalInput = movementInput.x;
+        verticalInput = movementInput.y;
+        isSprinting = sprint.ReadValue<float>() > 0;
     }
 
     private void MovePlayer()

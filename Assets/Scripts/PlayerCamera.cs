@@ -1,15 +1,30 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCamera : MonoBehaviour {
     // Using SerializeField to access the variables in the inspector
+    [Header("Sensitivity")]
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
+    [Header("References")]
     [SerializeField] private Transform orientation;
 
-    float xRotation;
-    float yRotation;
+    [Header("Input")]
+    [SerializeField] private InputAction look;
 
+    private float xRotation;
+    private float yRotation;
+
+    private void OnEnable()
+    {
+        look.Enable();
+    }
+
+    private void OnDisable()
+    {
+        look.Disable();
+    }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,8 +33,10 @@ public class PlayerCamera : MonoBehaviour {
 
     private void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        Vector2 lookInput = look.ReadValue<Vector2>();
+
+        float mouseX = lookInput.x * sensX;
+        float mouseY = lookInput.y * sensY;
 
         yRotation += mouseX;
 
