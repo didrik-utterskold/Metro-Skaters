@@ -1019,7 +1019,25 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
+  jumpForce: 5
   orientation: {fileID: 212212210}
+  jump:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 37d3ceb9-59ed-4d25-8749-80c13449f857
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b9f4f08d-a25f-462d-ac25-0ce9beff047c
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &1787743755
 GameObject:
   m_ObjectHideFlags: 0

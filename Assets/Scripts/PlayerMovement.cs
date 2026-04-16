@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement: MonoBehaviour 
 {
@@ -15,13 +16,19 @@ public class PlayerMovement: MonoBehaviour
     [SerializeField] private float groundDistance;
     [SerializeField] private float playerHeight;
     [SerializeField] private LayerMask whatIsGround;
+
+    [SerializeField] private float jumpForce = 5f;
     bool grounded;
 
     [SerializeField] private Transform orientation;
 
+    [SerializeField] InputAction jump;
+
     float horizontalInput;
     float verticalInput;
     bool isSprinting;
+
+    
 
     Vector3 moveDirection;
 
@@ -32,6 +39,11 @@ public class PlayerMovement: MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+    }
+
+    private void OnEnable()
+    {
+        jump.Enable();
     }
 
     private void Update()
@@ -52,6 +64,11 @@ public class PlayerMovement: MonoBehaviour
         else
         {
             rb.linearDamping = 0f;
+        }
+
+        if (jump.IsPressed() && grounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
             
 
