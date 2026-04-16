@@ -9,6 +9,8 @@ public class PlayerMovement: MonoBehaviour
     [SerializeField] private float groundDrag;
 
     [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance;
     [SerializeField] private float playerHeight;
     [SerializeField] private LayerMask whatIsGround;
     bool grounded;
@@ -37,7 +39,7 @@ public class PlayerMovement: MonoBehaviour
     // Run every physics update
     private void FixedUpdate()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
 
         if (grounded)
         { 
