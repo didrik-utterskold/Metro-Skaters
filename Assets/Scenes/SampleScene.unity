@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 1580531786}
   - component: {fileID: 1580531785}
   - component: {fileID: 1580531784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,8 @@ MonoBehaviour:
   orientation: {fileID: 212212210}
   capsuleCollider: {fileID: 1787743757}
   groundCheck: {fileID: 396855538}
-  groundDistance: 0.3
+  groundRadius: 0.2
+  groundLength: 0.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512

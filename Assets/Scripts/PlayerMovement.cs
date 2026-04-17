@@ -14,7 +14,8 @@ public class PlayerMovement: MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance;
+    [SerializeField] private float groundRadius;
+    [SerializeField] private float groundLength;
     [SerializeField] private LayerMask whatIsGround;
 
     [Header("Jumping")]
@@ -79,13 +80,29 @@ public class PlayerMovement: MonoBehaviour
     // Run every physics update
     private void FixedUpdate()
     {
-        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
-
+        GroundDetection();
         HandleDrag();
         MovePlayer();
         HandleSliding();
         HandleJumping();
         SpeedControl();
+    }
+
+    private void GroundDetection()
+    {
+        bool isTouching = isGrounded = Physics.CheckSphere(groundCheck.position, groundRadius, whatIsGround);
+
+        bool isBelow = isGrounded = Physics.SphereCast(
+            groundCheck.position,
+            groundRadius,
+            Vector3.down,
+            out RaycastHit hit,
+            groundLength,
+            whatIsGround,
+            QueryTriggerInteraction.Ignore
+        );
+
+        isGrounded = isTouching || isBelow;
     }
 
     private void HandleInput()
