@@ -5,11 +5,11 @@ public class PlayerMovement: MonoBehaviour
 {
     // Using headers to organise the variables in the inspector
     [Header("Movement")]
-
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
     [SerializeField] private float groundDrag;
     [SerializeField] private Transform orientation;
+    [SerializeField] private CapsuleCollider capsuleCollider;
     private float moveSpeed;
 
     [Header("Ground Check")]
@@ -19,27 +19,39 @@ public class PlayerMovement: MonoBehaviour
 
     [Header("Jumping")]
     [SerializeField] private float jumpForce = 5f;
-    bool grounded;
+
+    [Header("Sliding")]
+    [SerializeField] private float slideDuration;
 
     [Header("Input")]
     [SerializeField] InputAction jump;
     [SerializeField] InputAction movementInput;
     [SerializeField] InputAction sprint;
+    [SerializeField] InputAction slide;
+    
 
+    private float horizontalInput;
+    private float verticalInput;
+    private float normalHeight;
+    private Vector3 normalCenter;
+    private float slideTimer;
+    private bool sprintingPressed;
+    private  bool isSliding;
+    private bool slidingPressed;
+    private bool jumpingPressed;
+    private bool isGrounded;
 
-    float horizontalInput;
-    float verticalInput;
-    bool isSprinting;
+    private Vector3 moveDirection;
 
-    Vector3 moveDirection;
-
-    Rigidbody rb;
+    private Rigidbody rb;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        normalHeight = capsuleCollider.height;
+        normalCenter = capsuleCollider.center;
     }
 
     private void OnEnable()
@@ -47,6 +59,7 @@ public class PlayerMovement: MonoBehaviour
         movementInput.Enable();
         jump.Enable();
         sprint.Enable();
+        slide.Enable();
     }
 
     private void OnDisable()
@@ -54,6 +67,7 @@ public class PlayerMovement: MonoBehaviour
         movementInput.Disable();
         jump.Disable();
         sprint.Disable();
+        slide.Disable();
     }
 
     private void Update()
@@ -65,23 +79,12 @@ public class PlayerMovement: MonoBehaviour
     // Run every physics update
     private void FixedUpdate()
     {
-        grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
 
-        if (grounded)
-        { 
-            rb.linearDamping = groundDrag; 
-        } 
-        else
-        {
-            rb.linearDamping = 0f;
-        }
-
-        if (jump.IsPressed() && grounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-
+        HandleDrag();
         MovePlayer();
+        HandleSliding();
+        HandleJumping();
         SpeedControl();
     }
 
@@ -90,7 +93,9 @@ public class PlayerMovement: MonoBehaviour
         Vector2 movementInput = this.movementInput.ReadValue<Vector2>();
         horizontalInput = movementInput.x;
         verticalInput = movementInput.y;
-        isSprinting = sprint.ReadValue<float>() > 0;
+        sprintingPressed = sprint.IsPressed();
+        slidingPressed = slide.IsPressed();
+        jumpingPressed = jump.IsPressed();
     }
 
     private void MovePlayer()
@@ -103,13 +108,61 @@ public class PlayerMovement: MonoBehaviour
     // Check if the player is sprinting and adjust the move speed accordingly
     private void HandleSprinting() 
     {
-        if (isSprinting) 
+        if (sprintingPressed) 
         {
             moveSpeed = sprintingSpeed;
         } 
         else 
         {
             moveSpeed = walkingSpeed;
+        }
+    }
+
+    private void StartSlide()
+    {
+        if (slidingPressed && isGrounded && !isSliding)
+        {
+            isSliding = true;
+            slideTimer = slideDuration;
+            capsuleCollider.height = 0.5f;
+            capsuleCollider.center = new Vector3(0f, 0.25f, 0f);
+        }
+    }
+
+    private void HandleSliding()
+    {
+        StartSlide();
+
+        if (!isSliding) return;
+
+        slideTimer -= Time.fixedDeltaTime;
+            
+        if (slideTimer <= 0f)
+        {
+            capsuleCollider.height = normalHeight;
+            capsuleCollider.center = normalCenter;
+            isSliding = false;
+        }
+    }
+
+    
+    private void HandleJumping()
+    {
+        if (jumpingPressed && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    private void HandleDrag()
+    {
+        if (isGrounded)
+        {
+            rb.linearDamping = groundDrag;
+        }
+        else
+        {
+            rb.linearDamping = 0f;
         }
     }
 

@@ -1031,12 +1031,14 @@ MonoBehaviour:
   sprintingSpeed: 14
   groundDrag: 10
   orientation: {fileID: 212212210}
+  capsuleCollider: {fileID: 1787743757}
   groundCheck: {fileID: 396855538}
   groundDistance: 0.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
   jumpForce: 5
+  slideDuration: 1.2
   jump:
     m_Name: Jump
     m_Type: 0
@@ -1118,6 +1120,23 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Sprint
+      m_Flags: 0
+    m_Flags: 0
+  slide:
+    m_Name: Slide
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 042534fa-5c29-48d0-8a9d-231e3ba62640
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 72c46b25-660a-4605-84fc-0a1b813a63fb
+      m_Path: <Keyboard>/leftCtrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Slide
       m_Flags: 0
     m_Flags: 0
 --- !u!1 &1787743755
