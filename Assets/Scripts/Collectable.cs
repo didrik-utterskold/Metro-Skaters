@@ -19,6 +19,7 @@ public class Collectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            ScoreManager.Instance.AddCoin();
             Collect();
         }
     }
