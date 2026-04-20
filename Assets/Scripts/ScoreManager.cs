@@ -12,13 +12,14 @@ public class ScoreManager : MonoBehaviour
 
     private float elapsedTime;
 
-    public static ScoreManager Instance;
+    public static ScoreManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
     }
 
+    // Reset score, coins, and load high score from PlayerPrefs
     private void Start()
     {
         coinCount = 0;
@@ -27,19 +28,21 @@ public class ScoreManager : MonoBehaviour
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
+    // Calculate score based on elapsed time and multiplier
     private void Update()
     {
         elapsedTime += Time.deltaTime;
-        currentScore = elapsedTime * currentMultiplier * 100;
-
-        if (currentScore > highScore)
-        {
-            highScore = currentScore;
-        }
+        currentScore = (int)(elapsedTime * currentMultiplier * 100);
     }
 
     public void SaveHighScore()
     {
+        if (highScore > currentScore)
+        {
+            return;
+        }
+
+        highScore = currentScore;
         PlayerPrefs.SetFloat("HighScore", highScore);
         PlayerPrefs.Save();
     }
@@ -55,9 +58,14 @@ public class ScoreManager : MonoBehaviour
         coinCount++;
     }
 
-    public float GetScore()
+    public float GetCurrentScore()
     {
         return currentScore;
+    }
+
+    public float GetHighScore()
+    {
+        return highScore;
     }
 
     public float GetMultiplier()
