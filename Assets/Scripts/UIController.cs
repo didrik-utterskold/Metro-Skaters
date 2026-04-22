@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
     private Label currentScoreLabel;
     private Label highScoreLabel;
     private Label coinsLabel;
+    private Label multiplierLabel;
 
     private void OnEnable()
     {
@@ -14,6 +15,7 @@ public class UIController : MonoBehaviour
         currentScoreLabel = root.Q<Label>("score-label");
         highScoreLabel = root.Q<Label>("highscore-label");
         coinsLabel = root.Q<Label>("coins-label");
+        multiplierLabel = root.Q<Label>("multiplier-label");
         UpdateUI();
     }
 
@@ -22,6 +24,7 @@ public class UIController : MonoBehaviour
         currentScoreLabel.text = "Score: " + ScoreManager.Instance.GetCurrentScore();
         highScoreLabel.text = "High Score: " + ScoreManager.Instance.GetHighScore();
         coinsLabel.text = "Coins: " + ScoreManager.Instance.GetCoinCount();
+        multiplierLabel.text = "Multiplier: x" + ScoreManager.Instance.GetMultiplier();
     }
 
     private void Update()

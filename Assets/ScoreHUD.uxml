@@ -4,5 +4,6 @@
         <ui:Label name="score-label" text="Score: 0" class="hud-label"/>
         <ui:Label name="highscore-label" text="High Score: 0" class="hud-label"/>
         <ui:Label name="coins-label" text="Coins: 0" class="hud-label"/>
+         <ui:Label name="multiplier-label" text="Multiplier: x1" class="hud-label"/>
     </ui:VisualElement>
 </ui:UXML>
