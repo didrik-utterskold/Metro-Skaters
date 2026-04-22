@@ -83,3 +83,4 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+"2X Multiplier" (https://skfb.ly/oMyPN) by TheMonsterHighFan2002 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
