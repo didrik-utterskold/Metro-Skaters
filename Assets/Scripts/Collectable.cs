@@ -15,7 +15,7 @@ public class Collectable : MonoBehaviour
         transform.Rotate(50f * Time.deltaTime * Vector3.up);
     }
 
-     private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
