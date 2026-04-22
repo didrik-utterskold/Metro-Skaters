@@ -8,6 +8,7 @@ public class PlayerMovement: MonoBehaviour
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
     [SerializeField] private float groundDrag;
+    [SerializeField] private float airDrag;
     [SerializeField] private Transform orientation;
     [SerializeField] private CapsuleCollider capsuleCollider;
     private float moveSpeed;
@@ -179,7 +180,7 @@ public class PlayerMovement: MonoBehaviour
         }
         else
         {
-            rb.linearDamping = 0f;
+            rb.linearDamping = airDrag;
         }
     }
 

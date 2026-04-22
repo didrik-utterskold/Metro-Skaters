@@ -1554,8 +1554,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   walkingSpeed: 7
-  sprintingSpeed: 14
+  sprintingSpeed: 12
   groundDrag: 10
+  airDrag: 2
   orientation: {fileID: 212212210}
   capsuleCollider: {fileID: 1787743757}
   groundCheck: {fileID: 396855538}
