@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CopBehaviour
   playerLocation: {fileID: 1787743756}
-  speed: 5
+  speed: 0
 --- !u!136 &1396326950
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1719,7 +1719,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787743755}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 86d3d4f1cffd1ed4a9e18b89224789f6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
