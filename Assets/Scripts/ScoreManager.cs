@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -10,7 +11,9 @@ public class ScoreManager : MonoBehaviour
 
     private float currentMultiplier;
 
-    private float elapsedTime;
+    private float defaultMultiplier = 1f;
+
+    private Coroutine multiplierCoroutine;
 
     public static ScoreManager Instance { get; private set; }
 
@@ -24,15 +27,14 @@ public class ScoreManager : MonoBehaviour
     {
         coinCount = 0;
         currentScore = 0f;
-        currentMultiplier = 1f;
+        currentMultiplier = defaultMultiplier;
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
     // Calculate score based on elapsed time and multiplier
     private void Update()
     {
-        elapsedTime += Time.deltaTime;
-        currentScore = (int)(elapsedTime * currentMultiplier * 100);
+        currentScore += Time.deltaTime * currentMultiplier * 100f;
     }
 
     public void SaveHighScore()
@@ -58,14 +60,14 @@ public class ScoreManager : MonoBehaviour
         coinCount++;
     }
 
-    public float GetCurrentScore()
+    public int GetCurrentScore()
     {
-        return currentScore;
+        return (int)currentScore;
     }
 
-    public float GetHighScore()
+    public int GetHighScore()
     {
-        return highScore;
+        return (int)highScore;
     }
 
     public float GetMultiplier()
@@ -73,8 +75,20 @@ public class ScoreManager : MonoBehaviour
         return currentMultiplier;
     }
 
-    public void SetMultiplier(float multiplier)
+    public void SetMultiplier(float multiplier, float duration)
     {
+        if (multiplierCoroutine != null)
+        {
+            StopCoroutine(multiplierCoroutine);
+        }
+
         currentMultiplier = multiplier;
+        multiplierCoroutine = StartCoroutine(MultiplierRoutineDuration(duration));
+    }
+
+    private IEnumerator MultiplierRoutineDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        currentMultiplier = defaultMultiplier;
     }
 }
