@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
-public class PlayerMovement: MonoBehaviour 
+public class PlayerMovement : MonoBehaviour
 {
     // Using headers to organise the variables in the inspector
     [Header("Movement")]
@@ -30,7 +31,7 @@ public class PlayerMovement: MonoBehaviour
     [SerializeField] InputAction movementInput;
     [SerializeField] InputAction sprint;
     [SerializeField] InputAction slide;
-    
+
 
     private float horizontalInput;
     private float verticalInput;
@@ -38,10 +39,12 @@ public class PlayerMovement: MonoBehaviour
     private Vector3 normalCenter;
     private float slideTimer;
     private bool sprintingPressed;
-    private  bool isSliding;
+    private bool isSliding;
     private bool slidingPressed;
     private bool jumpingPressed;
     private bool isGrounded;
+
+    private Coroutine jumpBoostCoroutine;
 
     private Vector3 moveDirection;
 
@@ -75,7 +78,7 @@ public class PlayerMovement: MonoBehaviour
     private void Update()
     {
         HandleInput();
-        
+
     }
 
     // Run every physics update
@@ -124,13 +127,13 @@ public class PlayerMovement: MonoBehaviour
     }
 
     // Check if the player is sprinting and adjust the move speed accordingly
-    private void HandleSprinting() 
+    private void HandleSprinting()
     {
-        if (sprintingPressed) 
+        if (sprintingPressed)
         {
             moveSpeed = sprintingSpeed;
-        } 
-        else 
+        }
+        else
         {
             moveSpeed = walkingSpeed;
         }
@@ -154,7 +157,7 @@ public class PlayerMovement: MonoBehaviour
         if (!isSliding) return;
 
         slideTimer -= Time.fixedDeltaTime;
-            
+
         if (slideTimer <= 0f)
         {
             capsuleCollider.height = normalHeight;
@@ -163,7 +166,7 @@ public class PlayerMovement: MonoBehaviour
         }
     }
 
-    
+
     private void HandleJumping()
     {
         if (jumpingPressed && isGrounded)
@@ -185,13 +188,33 @@ public class PlayerMovement: MonoBehaviour
     }
 
     // Limit the speed within reasonable intervals
-    private void SpeedControl() {           
+    private void SpeedControl()
+    {
         Vector3 flatVel = new(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        if (flatVel.magnitude > moveSpeed) 
+        if (flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.linearVelocity = new(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
+    }
+
+    // Method to set the jump boost effect, allowing for temporary increases in jump height
+    public void SetJumpBoost(float jumpBoost, float duration)
+    {
+        if (jumpBoostCoroutine != null)
+        {
+            StopCoroutine(jumpBoostCoroutine);
+        }
+
+        jumpForce = jumpBoost;
+        jumpBoostCoroutine = StartCoroutine(JumpBoostCoroutine(duration));
+    }
+
+    // Coroutine to reset the jump force after the duration of the jump boost effect has expired
+    private IEnumerator JumpBoostCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        jumpForce = 5f;
     }
 }
