@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cop
+  - CoinDetector
+  - PlayerBubble
   layers:
   - Default
   - TransparentFX
@@ -13,12 +15,12 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Player
   - 
   - whatIsGround
-  - 
-  - 
-  - 
+  - Coins
+  - Enemy
+  - CoinCollector
   - 
   - 
   - 

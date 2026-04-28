@@ -1,8 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using static Collectable;
 
-public class CoinBehaviour : MonoBehaviour, ICollectableEffect
+public class MagnetBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;
 
@@ -11,10 +10,14 @@ public class CoinBehaviour : MonoBehaviour, ICollectableEffect
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Applies the coin's effect by adding to the player's score and playing a sound effect
     public void ApplyEffect(GameObject player)
     {
-        ScoreManager.Instance.AddCoin();
+
+        PlayerMagnet playerMagnet = player.GetComponent<PlayerMagnet>();
+        
+        playerMagnet.ActivateMagnet();
+
         AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+
     }
 }
