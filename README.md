@@ -32,19 +32,18 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 |----------------------|-------------|
 | Coins                | [x]         |
 
-### POWERUPS - Progress: 0% (2/5)
+### POWERUPS - Progress: 100% (3/3)
 | Feature      | Implemented |
 |--------------|-------------|
 | Jump boots   | [x]         |
-| Jetpack      | [ ]         |
-| Magnet       | [ ]         |
+| Magnet       | [x]         |
 | Double Score | [x]         |
 
-### CHARACTERS - Progress: 50% (1/2)
+### CHARACTERS - Progress: 100% (2/2)
 | Feature        | Implemented |
 |----------------|-------------|
 | Player         | [x]         |
-| Cop with dog   | [ ]         |
+| Cop with dog   | [x]         |
 
 ### UI - Progress: 80% (4/5)
 | Feature                | Implemented |
@@ -55,13 +54,13 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Coin Counter           | [x]         |
 | Previous Best          | [x]         |
 
-### OBSTACLES - Progress: 0% (0/6)
+### OBSTACLES - Progress: 50% (3/6)
 | Feature                    | Implemented |
 |----------------------------|-------------|
-| Jumpable                   | [ ]         |
+| Jumpable                   | [x]         |
 | Slidable                   | [ ]         |
-| Passable through both      | [ ]         |
-| Stationary Trains          | [ ]         |
+| Passable through both      | [x]         |
+| Stationary Trains          | [x]         |
 | Moving Trains              | [ ]         |
 | Ramps                      | [ ]         |
 
@@ -72,16 +71,21 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Sliding         | [x]         |
 | Sprinting       | [x]         |
 
-### MISC - Progress: 0% (0/2)
+### MISC - Progress: 0% (0/5)
 | Feature           | Implemented |
 |-------------------|-------------|
 | Narrow Passages   | [ ]         |
 | Traffic lights    | [ ]         |
+| Jetpack           | [ ]         |
+| Pogo Stick        | [ ]         |
+| Surfboard         | [ ]         |
 
-### 🔢 TOTAL PROGRESS - 47% (11/23 features complete)
+### 🔢 TOTAL PROGRESS - 64% (16/25 features complete)
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 "A 2X Multiplier for Font Tales Run" (https://skfb.ly/pHoNr) by tidnara09 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 "Generic Cartoon Shoes" (https://skfb.ly/ou79n) by ijiklvn is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 "Magnet" (https://skfb.ly/6W9ZC) by aidanp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+"Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+"Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
