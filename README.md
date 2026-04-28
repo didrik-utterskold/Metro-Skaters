@@ -84,8 +84,13 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "A 2X Multiplier for Font Tales Run" (https://skfb.ly/pHoNr) by tidnara09 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "Generic Cartoon Shoes" (https://skfb.ly/ou79n) by ijiklvn is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "Magnet" (https://skfb.ly/6W9ZC) by aidanp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
