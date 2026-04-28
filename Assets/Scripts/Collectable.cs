@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    // Interface for collectable effects, allowing for different types of collectables with unique behaviors
+    // Interface that defines the method for applying the collectable's effect to the player
     public interface ICollectableEffect
     {
-        void ApplyEffect();
+        void ApplyEffect(GameObject player);
     }
     // Rotates the collectable every frame to make it more visually appealing
     private void Update()
@@ -14,14 +14,14 @@ public class Collectable : MonoBehaviour
     }
 
     // Detects when the player collides with the collectable, applies the effect, and destroys the collectable
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider player)
     {
 
         ICollectableEffect effect = GetComponent<ICollectableEffect>();
 
-        if (other.CompareTag("Player"))
+        if (player.CompareTag("Player"))
         {
-            effect.ApplyEffect();
+            effect.ApplyEffect(player.gameObject);
             Destroy(gameObject);
         }
     }

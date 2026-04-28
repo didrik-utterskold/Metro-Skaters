@@ -13,7 +13,7 @@ public class MultiplierBehaviour : MonoBehaviour, ICollectableEffect
     }
 
     // Applies the multiplier's effect by setting the player's score multiplier and playing a sound effect
-    public void ApplyEffect()
+    public void ApplyEffect(GameObject player)
     {
         ScoreManager.Instance.SetMultiplier(doubleScore, duration);
         AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
