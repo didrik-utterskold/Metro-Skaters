@@ -54,11 +54,11 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Coin Counter           | [x]         |
 | Previous Best          | [x]         |
 
-### OBSTACLES - Progress: 50% (3/6)
+### OBSTACLES - Progress: 67% (4/6)
 | Feature                    | Implemented |
 |----------------------------|-------------|
 | Jumpable                   | [x]         |
-| Slidable                   | [ ]         |
+| Slidable                   | [x]         |
 | Passable through both      | [x]         |
 | Stationary Trains          | [x]         |
 | Moving Trains              | [ ]         |
@@ -80,7 +80,7 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Pogo Stick        | [ ]         |
 | Surfboard         | [ ]         |
 
-### 🔢 TOTAL PROGRESS - 64% (16/25 features complete)
+### 🔢 TOTAL PROGRESS - 68% (17/25 features complete)
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
@@ -94,3 +94,5 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 "Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 "Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+"Bar Fence" (https://skfb.ly/YA7A) by paethon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
