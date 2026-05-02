@@ -157,6 +157,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleDrag()
     {
+        if (isSliding) 
+        {
+            return;
+        }
         if (isGrounded)
         {
             rb.linearDamping = groundDrag;
@@ -202,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
     private void StartSlide()
     {
         if (slideCooldown > 0f) return;
+        rb.linearDamping = 0f;
         isSliding = true;
         capsuleCollider.height = slideHeight;
         capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
