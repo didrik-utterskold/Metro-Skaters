@@ -45,16 +45,16 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Player         | [x]         |
 | Cop with dog   | [x]         |
 
-### UI - Progress: 80% (4/5)
+### UI - Progress: 100% (5/5)
 | Feature                | Implemented |
 |------------------------|-------------|
 | Score                  | [x]         |
 | Current multiplier     | [x]         |
-| Duration of Powerup    | [ ]         |
+| Duration of Powerup    | [x]         |
 | Coin Counter           | [x]         |
 | Previous Best          | [x]         |
 
-### OBSTACLES - Progress: 67% (4/6)
+### OBSTACLES - Progress: 83% (5/6)
 | Feature                    | Implemented |
 |----------------------------|-------------|
 | Jumpable                   | [x]         |
@@ -62,7 +62,7 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Passable through both      | [x]         |
 | Stationary Trains          | [x]         |
 | Moving Trains              | [ ]         |
-| Ramps                      | [ ]         |
+| Ramps                      | [x]         |
 
 ### MOVEMENT - Progress: 100% (3/3)
 | Feature         | Implemented |
@@ -80,7 +80,7 @@ utilised; the standard libraries are more than sufficient. The game currently ru
 | Pogo Stick        | [ ]         |
 | Surfboard         | [ ]         |
 
-### 🔢 TOTAL PROGRESS - 68% (17/25 features complete)
+### 🔢 TOTAL PROGRESS - 76% (19/25 features complete)
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
