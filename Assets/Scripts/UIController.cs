@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
     private Label multiplierLabel;
     private Label powerUpTimerLabel;
 
-    private float powerUpTimeLeft;
+    private float powerUpTimeRemaining;
 
     private void OnEnable()
     {
@@ -29,7 +29,18 @@ public class UIController : MonoBehaviour
         highScoreLabel.text = "High Score: " + ScoreManager.Instance.GetHighScore();
         coinsLabel.text = "Coins: " + ScoreManager.Instance.GetCoinCount();
         multiplierLabel.text = "Multiplier: x" + ScoreManager.Instance.GetMultiplier();
-        powerUpTimerLabel.text = "Power-Up Time: " + ScoreManager.Instance.GetPowerUpTimeRemaining().ToString("F1") + "s";
+
+        powerUpTimeRemaining = ScoreManager.Instance.GetPowerUpTimeRemaining();
+
+        if (powerUpTimeRemaining > 0f)
+        {
+            powerUpTimerLabel.text = "Power-Up Time: " + powerUpTimeRemaining.ToString("F1") + "s";
+            powerUpTimerLabel.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            powerUpTimerLabel.style.display = DisplayStyle.None;
+        }
     }
 
     private void Update()

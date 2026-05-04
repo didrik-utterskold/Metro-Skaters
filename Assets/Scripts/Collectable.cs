@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    private float powerUpDuration = 10f;
-
     // Interface that defines the method for applying the collectable's effect to the player
     public interface ICollectableEffect
     {
@@ -26,9 +24,5 @@ public class Collectable : MonoBehaviour
             effect.ApplyEffect(player.gameObject);
             Destroy(gameObject);
         }
-    }
-    public float GetPowerUpDuration()
-    {
-        return powerUpDuration;
     }
 }

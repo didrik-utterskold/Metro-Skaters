@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Method to set the jump boost effect, allowing for temporary increases in jump height
-    public void SetJumpBoost(float jumpBoost, float duration)
+    public void SetJumpBoost(float jumpBoost)
     {
         if (jumpBoostCoroutine != null)
         {
@@ -208,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         jumpForce = jumpBoost;
-        jumpBoostCoroutine = StartCoroutine(JumpBoostCoroutine(duration));
+        jumpBoostCoroutine = StartCoroutine(JumpBoostCoroutine(10f));
     }
 
     // Coroutine to reset the jump force after the duration of the jump boost effect has expired
