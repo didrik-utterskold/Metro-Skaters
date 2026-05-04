@@ -21,3 +21,7 @@
     color: white;
     -unity-font-style: bold;
 }
+
+.powerup-timer {
+    color: yellow;
+}

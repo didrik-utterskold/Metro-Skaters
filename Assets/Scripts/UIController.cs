@@ -7,6 +7,9 @@ public class UIController : MonoBehaviour
     private Label highScoreLabel;
     private Label coinsLabel;
     private Label multiplierLabel;
+    private Label powerUpTimerLabel;
+
+    private float powerUpTimeLeft;
 
     private void OnEnable()
     {
@@ -16,6 +19,7 @@ public class UIController : MonoBehaviour
         highScoreLabel = root.Q<Label>("highscore-label");
         coinsLabel = root.Q<Label>("coins-label");
         multiplierLabel = root.Q<Label>("multiplier-label");
+        powerUpTimerLabel = root.Q<Label>("powerup-timer-label");
         UpdateUI();
     }
 
@@ -25,6 +29,7 @@ public class UIController : MonoBehaviour
         highScoreLabel.text = "High Score: " + ScoreManager.Instance.GetHighScore();
         coinsLabel.text = "Coins: " + ScoreManager.Instance.GetCoinCount();
         multiplierLabel.text = "Multiplier: x" + ScoreManager.Instance.GetMultiplier();
+        powerUpTimerLabel.text = "Power-Up Time: " + ScoreManager.Instance.GetPowerUpTimeRemaining().ToString("F1") + "s";
     }
 
     private void Update()

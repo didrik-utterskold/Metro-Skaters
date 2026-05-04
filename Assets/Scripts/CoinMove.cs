@@ -3,7 +3,7 @@ using UnityEngine;
 public class CoinMove : MonoBehaviour
 {
     private Transform playerTransform;
-    private float moveSpeed = 12f;
+    private float moveSpeed = 15f;
     private bool isAttracted = false;
 
     private void Update()

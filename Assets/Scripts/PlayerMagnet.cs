@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerMagnet : MonoBehaviour
 {
     [SerializeField] private GameObject coinDetector;
-    [SerializeField] private float magnetDuration = 10f;
+    private float magnetDuration = 10f;
 
     private Coroutine magnetCoroutine;
     void Start()
