@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
-    [SerializeField] private float groundDrag;
     [SerializeField] private float airDrag;
+    [SerializeField] private float groundDrag = 4;
     [SerializeField] private Transform orientation;
     [SerializeField] private CapsuleCollider capsuleCollider;
     private float moveSpeed;
@@ -24,7 +24,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
 
     [Header("Sliding")]
-    [SerializeField] private float slideDuration;
+    [SerializeField] private float slideForce;
+    [SerializeField] private float slideFriction;
+    [SerializeField] private float minSlideSpeed;
+    [SerializeField] private float slideHeight = 0.5f;
+    [SerializeField] private float slideCooldownTime = 0.2f;
 
     [Header("Input")]
     [SerializeField] InputAction jump;
@@ -37,10 +41,10 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     private float normalHeight;
     private Vector3 normalCenter;
-    private float slideTimer;
-    private bool sprintingPressed;
+    private bool isSprinting;
     private bool isSliding;
     private bool slidingPressed;
+    private float slideCooldown;
     private bool jumpingPressed;
     private bool isGrounded;
 
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
 
     private Rigidbody rb;
+
+
 
 
     private void Start()
@@ -78,7 +84,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         HandleInput();
-
+        if (slideCooldown > 0f)
+        slideCooldown -= Time.deltaTime;
     }
 
     // Run every physics update
@@ -114,13 +121,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movementInput = this.movementInput.ReadValue<Vector2>();
         horizontalInput = movementInput.x;
         verticalInput = movementInput.y;
-        sprintingPressed = sprint.IsPressed();
         slidingPressed = slide.IsPressed();
         jumpingPressed = jump.IsPressed();
+        if (sprint.WasPressedThisFrame()) {isSprinting = !isSprinting;}
     }
 
     private void MovePlayer()
     {
+        if (isSliding) return;
         HandleSprinting();
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
@@ -129,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     // Check if the player is sprinting and adjust the move speed accordingly
     private void HandleSprinting()
     {
-        if (sprintingPressed)
+        if (isSprinting) 
         {
             moveSpeed = sprintingSpeed;
         }
@@ -138,35 +146,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = walkingSpeed;
         }
     }
-
-    private void StartSlide()
-    {
-        if (slidingPressed && isGrounded && !isSliding)
-        {
-            isSliding = true;
-            slideTimer = slideDuration;
-            capsuleCollider.height = 0.5f;
-            capsuleCollider.center = new Vector3(0f, 0.25f, 0f);
-        }
-    }
-
-    private void HandleSliding()
-    {
-        StartSlide();
-
-        if (!isSliding) return;
-
-        slideTimer -= Time.fixedDeltaTime;
-
-        if (slideTimer <= 0f)
-        {
-            capsuleCollider.height = normalHeight;
-            capsuleCollider.center = normalCenter;
-            isSliding = false;
-        }
-    }
-
-
+    
     private void HandleJumping()
     {
         if (jumpingPressed && isGrounded)
@@ -177,6 +157,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleDrag()
     {
+        if (isSliding) 
+        {
+            return;
+        }
         if (isGrounded)
         {
             rb.linearDamping = groundDrag;
@@ -188,8 +172,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Limit the speed within reasonable intervals
-    private void SpeedControl()
-    {
+    private void SpeedControl() {           
+       if (isSliding) return;
+
         Vector3 flatVel = new(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         if (flatVel.magnitude > moveSpeed)
@@ -217,4 +202,56 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         jumpForce = 5f;
     }
+    
+    private void StartSlide()
+    {
+        if (slideCooldown > 0f) return;
+        rb.linearDamping = 0f;
+        isSliding = true;
+        capsuleCollider.height = slideHeight;
+        capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
+
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+         rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
+
+    }
+
+    private void StopSlide()
+    {
+        isSliding = false;
+        capsuleCollider.height = normalHeight;
+        capsuleCollider.center = normalCenter;
+        slideCooldown = slideCooldownTime;
+
+    }
+
+    private void HandleSliding()
+    {
+
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        if (slidingPressed && !isSliding && isGrounded &&
+        (horizontalInput != 0 || verticalInput != 0) && flatVel.magnitude >= 4f)
+        {
+            StartSlide();
+        }
+
+        if ((!slidingPressed && isSliding) || (flatVel.magnitude <= 0.1f))
+        {
+            StopSlide();
+        }
+
+        if (!isSliding) return;
+
+        if (flatVel.magnitude < minSlideSpeed)
+        {
+            StopSlide();
+        }
+        else if (flatVel.magnitude > 0.1f)
+        {
+            rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+        }
+    }
+
 }
