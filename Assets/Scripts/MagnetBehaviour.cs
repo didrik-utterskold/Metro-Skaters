@@ -14,8 +14,10 @@ public class MagnetBehaviour : MonoBehaviour, ICollectableEffect
     {
 
         PlayerMagnet playerMagnet = player.GetComponent<PlayerMagnet>();
-        
+
         playerMagnet.ActivateMagnet();
+
+        ScoreManager.Instance.SetPowerUp();
 
         AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
 

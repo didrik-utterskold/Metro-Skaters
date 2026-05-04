@@ -5,7 +5,6 @@ public class ShoesBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;
     private float jumpBoost = 10f;
-    private float duration = 10.0f;
 
     private void Start()
     {
@@ -16,7 +15,8 @@ public class ShoesBehaviour : MonoBehaviour, ICollectableEffect
     public void ApplyEffect(GameObject player)
     {
         PlayerMovement playerMovement = player.GetComponentInParent<PlayerMovement>();
-        playerMovement.SetJumpBoost(jumpBoost, duration);
+        ScoreManager.Instance.SetPowerUp();
+        playerMovement.SetJumpBoost(jumpBoost);
         AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
     }
 }

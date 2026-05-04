@@ -13,6 +13,10 @@ public class ScoreManager : MonoBehaviour
 
     private float defaultMultiplier = 1f;
 
+    private float powerUpTimer;
+
+    private float powerUpDuration = 10f;
+
     private Coroutine multiplierCoroutine;
 
     public static ScoreManager Instance { get; private set; }
@@ -75,7 +79,7 @@ public class ScoreManager : MonoBehaviour
         return currentMultiplier;
     }
 
-    public void SetMultiplier(float multiplier, float duration)
+    public void SetMultiplier(float multiplier)
     {
         if (multiplierCoroutine != null)
         {
@@ -83,12 +87,29 @@ public class ScoreManager : MonoBehaviour
         }
 
         currentMultiplier = multiplier;
-        multiplierCoroutine = StartCoroutine(MultiplierRoutineDuration(duration));
+        multiplierCoroutine = StartCoroutine(MultiplierRoutineDuration(powerUpDuration));
     }
 
     private IEnumerator MultiplierRoutineDuration(float duration)
     {
         yield return new WaitForSeconds(duration);
         currentMultiplier = defaultMultiplier;
+    }
+
+    public void SetPowerUp()
+    {
+        powerUpTimer = Time.time + powerUpDuration;
+    }
+
+    public float GetPowerUpTimeRemaining()
+    {
+        float remainingTime = Mathf.Max(0f, powerUpTimer - Time.time);
+
+        if (remainingTime <= 0f) 
+        {
+            return 0f;
+        }
+
+        return remainingTime;
     }
 }

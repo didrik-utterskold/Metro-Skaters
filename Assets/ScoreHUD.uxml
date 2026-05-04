@@ -4,6 +4,7 @@
         <ui:Label name="score-label" text="Score: 0" class="hud-label"/>
         <ui:Label name="highscore-label" text="High Score: 0" class="hud-label"/>
         <ui:Label name="coins-label" text="Coins: 0" class="hud-label"/>
-         <ui:Label name="multiplier-label" text="Multiplier: x1" class="hud-label"/>
+        <ui:Label name="multiplier-label" text="Multiplier: x1" class="hud-label"/>
+        <ui:Label name="powerup-timer-label" text="" class="hud-label powerup-timer"/>
     </ui:VisualElement>
 </ui:UXML>
