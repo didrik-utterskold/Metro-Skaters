@@ -37,24 +37,37 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] InputAction slide;
 
 
+    [Header("Input State")]
     private float horizontalInput;
     private float verticalInput;
-    private float normalHeight;
-    private Vector3 normalCenter;
+    private bool slidingPressed;
+    private bool jumpingPressed;
+    
+    [Header("Movement State")]
+    //temp while setting up statesystem
     private bool isSprinting;
     private bool isSliding;
-    private bool slidingPressed;
-    private float slideCooldown;
-    private bool jumpingPressed;
     private bool isGrounded;
+    
+    public enum MovementState {
+        walking,
+        sprinting,
+        sliding,
+        airborne
+    }
+    private MovementState currentState;
+    
+    [Header("Slide State")]
+    private float slideCooldown;
+    private float normalHeight;
+    private Vector3 normalCenter;
 
-    private Coroutine jumpBoostCoroutine;
-
+    [Header("Runtime References")]
     private Vector3 moveDirection;
-
     private Rigidbody rb;
-
-
+    
+    [Header("Abilities")]
+    private Coroutine jumpBoostCoroutine;
 
 
     private void Start()
@@ -92,9 +105,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         GroundDetection();
-        HandleDrag();
+        HandleSlideRequest();
+        HandleState();
         MovePlayer();
         HandleSliding();
+        HandleDrag();
         HandleJumping();
         SpeedControl();
     }
@@ -128,23 +143,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (isSliding) return;
-        HandleSprinting();
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
-    }
+        
+        switch (currentState)
+        {
+            case MovementState.walking:
+                moveSpeed = walkingSpeed;
+                break;
 
-    // Check if the player is sprinting and adjust the move speed accordingly
-    private void HandleSprinting()
-    {
-        if (isSprinting) 
-        {
-            moveSpeed = sprintingSpeed;
+            case MovementState.sprinting:
+                moveSpeed = sprintingSpeed;
+                break;
+
+            case MovementState.sliding:
+                return;
         }
-        else
-        {
-            moveSpeed = walkingSpeed;
-        }
+
+        rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
     }
     
     private void HandleJumping()
@@ -229,28 +244,57 @@ public class PlayerMovement : MonoBehaviour
     private void HandleSliding()
     {
 
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-        if (slidingPressed && !isSliding && isGrounded &&
-        (horizontalInput != 0 || verticalInput != 0) && flatVel.magnitude >= 4f)
-        {
-            StartSlide();
-        }
-
-        if ((!slidingPressed && isSliding) || (flatVel.magnitude <= 0.1f))
-        {
-            StopSlide();
-        }
-
         if (!isSliding) return;
 
-        if (flatVel.magnitude < minSlideSpeed)
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        if (!slidingPressed || flatVel.magnitude < minSlideSpeed)
         {
             StopSlide();
+            return;
         }
-        else if (flatVel.magnitude > 0.1f)
+
+    rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+    }
+
+    private void HandleState()
+    {
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+        if (!isGrounded)
         {
-            rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+            currentState = MovementState.airborne;
+            return;
+        }
+
+        if (isSliding)
+        {
+            currentState = MovementState.sliding;
+            return;
+        }
+
+        if (isSprinting && flatVel.magnitude > 0.1f)
+        {
+            currentState = MovementState.sprinting;
+            return;
+        }
+
+        currentState = MovementState.walking;
+    }
+
+    private void HandleSlideRequest()
+    {
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        bool canSlide =
+            slidingPressed &&
+            isGrounded &&
+            flatVel.magnitude >= minSlideSpeed &&
+            slideCooldown <= 0f;
+
+        if (canSlide && !isSliding)
+        {
+            StartSlide();
         }
     }
 
