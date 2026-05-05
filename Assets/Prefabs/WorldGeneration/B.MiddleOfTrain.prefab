@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1217344257984302384}
   - component: {fileID: 61624248390339381}
   - component: {fileID: 6704025384627081357}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wheel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 3345437473485389456}
   - component: {fileID: 2888366770940780323}
   - component: {fileID: 2869587859697089632}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bogie.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 384723258620976943}
   - component: {fileID: 8539571736631566596}
   - component: {fileID: 4933694408936159531}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Intermediate carType B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6210561055750278876}
   - component: {fileID: 2415294499668785665}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Intermediate carType B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,8 +326,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 3.4142017, z: 20.67173}
-  m_Center: {x: 0, y: 1.631978, z: -0.14368248}
+  m_Size: {x: 2.6336784, y: 3.4142017, z: 20.67173}
+  m_Center: {x: -0.07909441, y: 1.631978, z: -0.14368248}
 --- !u!1 &2023422759670844536
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 5087980866927661943}
   - component: {fileID: 2034146033981361721}
   - component: {fileID: 5123971067844431286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wheel.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5949156987511154912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bogie (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 4831068536160002581}
   - component: {fileID: 8597570362846487741}
   - component: {fileID: 7552148562224769692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wheel.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 711511341777319654}
   - component: {fileID: 5039235442019543490}
   - component: {fileID: 744277280479549652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wheel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6143910750456492993}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: B.MiddleOfTrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.123457, y: 0.08311555, z: -26.30861}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 1, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6210561055750278876}
@@ -673,7 +673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5039798674026754658}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bogie (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1072957068216148676}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 3480497030917963134}
   - component: {fileID: 2068380235805289431}
   - component: {fileID: 5090462115655970997}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bogie.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

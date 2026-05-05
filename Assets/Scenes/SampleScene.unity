@@ -1556,8 +1556,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   walkingSpeed: 7
   sprintingSpeed: 12
-  groundDrag: 10
   airDrag: 2
+  groundDrag: 10
   orientation: {fileID: 212212210}
   capsuleCollider: {fileID: 1787743757}
   groundCheck: {fileID: 396855538}
@@ -1567,7 +1567,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   jumpForce: 5
-  slideDuration: 1.2
+  slideForce: 0
+  slideFriction: 0
+  minSlideSpeed: 0
+  slideHeight: 0.5
+  slideCooldownTime: 0.2
   jump:
     m_Name: Jump
     m_Type: 0
@@ -1808,7 +1812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMagnet
   coinDetector: {fileID: 1968994346}
-  magnetDuration: 10
 --- !u!1001 &1903537790
 PrefabInstance:
   m_ObjectHideFlags: 0
