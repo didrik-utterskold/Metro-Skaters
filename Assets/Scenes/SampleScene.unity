@@ -1697,24 +1697,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6749a59fda504d348ba161f97f316980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementTemp
-  walkingSpeed: 10
-  sprintingSpeed: 16
+  walkingSpeed: 7
+  sprintingSpeed: 12
   airDrag: 2
   groundDrag: 10
   orientation: {fileID: 212212210}
   capsuleCollider: {fileID: 1787743757}
   groundCheck: {fileID: 396855538}
-  groundRadius: 0.2
-  groundLength: 0.3
+  groundDistance: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
+  capsuleRadius: 0.3
+  standingHeight: 2
   jumpForce: 5
-  slideForce: 0
-  slideFriction: 0
-  minSlideSpeed: 0
+  extraGravity: 5
+  slideForce: 4
+  slideFriction: 8
+  minSlideSpeed: 0.1
   slideHeight: 0.5
-  slideCooldownTime: 0.2
+  slideCooldownTime: 0.6
   jump:
     m_Name: Jump
     m_Type: 0
@@ -1815,6 +1817,7 @@ MonoBehaviour:
       m_Action: Slide
       m_Flags: 0
     m_Flags: 0
+  stateLockTime: 0.15
 --- !u!1 &1787743755
 GameObject:
   m_ObjectHideFlags: 0

@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-    rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+        rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
     }
 
     private void HandleState()

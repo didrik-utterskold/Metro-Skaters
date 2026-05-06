@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Diagnostics.CodeAnalysis;
+using UnityEditorInternal;
 
 public class PlayerMovementTemp : MonoBehaviour
 {
@@ -16,14 +17,17 @@ public class PlayerMovementTemp : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundRadius;
-    [SerializeField] private float groundLength;
+    [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
+
+
+    [SerializeField] private float capsuleRadius = 0.3f;
+    [SerializeField] private float standingHeight = 2f;
 
     [Header("Jumping")]
     [SerializeField] private float jumpForce = 5f;
 
-    [SerializeField] private float extraGravity = 5f;
+    [SerializeField] private float extraGravity = 10f;
 
     [Header("Sliding")]
     [SerializeField] private float slideForce;
@@ -45,7 +49,9 @@ public class PlayerMovementTemp : MonoBehaviour
     private bool jumpPressed;
     private bool sprintToggle;
 
-    // ================= STATE =================
+    [Header("State")]
+    private float stateLockTimer;
+    [SerializeField] private float stateLockTime = 0.15f;
     public enum MovementState
     {
         walking,
@@ -61,7 +67,6 @@ public class PlayerMovementTemp : MonoBehaviour
     private Vector3 moveDirection;
     private Rigidbody rb;
     private bool isGrounded;
-    private bool wasGrounded;
 
     [Header("Slide State")]
     private float slideCooldown;
@@ -101,19 +106,23 @@ public class PlayerMovementTemp : MonoBehaviour
     private void Update()
     {
         Debug.Log(horizontalInput + " " + verticalInput);
+        Debug.Log($"State: {currentState} | Grounded: {isGrounded} | Vel: {rb.linearVelocity}");
         HandleInput();
 
         if (slideCooldown > 0f)
             slideCooldown -= Time.deltaTime;
+
+        if (stateLockTimer > 0f)
+            stateLockTimer -= Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
         GroundDetection();
         HandleJump();
+        GravityAmplifier();
 
         UpdateState();
-        HandleStateTransitions();
 
         HandleMovement();
     }
@@ -139,47 +148,41 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private void GroundDetection()
     {
-        bool isTouching = Physics.CheckSphere(
-            groundCheck.position,
-            groundRadius,
-            whatIsGround
-        );
+        Vector3 center = groundCheck.position;
 
-        bool isBelow = Physics.SphereCast(
-            groundCheck.position,
-            groundRadius,
-            Vector3.down,
-            out _,
-            groundLength,
+        float height = standingHeight;
+
+        Vector3 top = center + Vector3.up * (height / 2f - capsuleRadius);
+        Vector3 bottom = center - Vector3.up * (height / 2f - capsuleRadius);
+
+        isGrounded = Physics.CheckCapsule(
+            bottom,
+            top,
+            capsuleRadius,
             whatIsGround,
             QueryTriggerInteraction.Ignore
         );
-
-        bool newIsGrounded = isTouching || isBelow;
-        wasGrounded = isGrounded;
-        isGrounded = newIsGrounded;
     }
 
     // ================= STATE =================
 
     private void UpdateState()
     {
-        // 1. AIRBORNE HAS HIGHEST PRIORITY
+
         if (!isGrounded)
         {
             if (currentState != MovementState.airborne)
                 SwitchState(MovementState.airborne);
 
-            return; // IMPORTANT: stop here
+            return;
         }
 
-        // 2. JUST LANDED
-        if (!wasGrounded && isGrounded)
+        if (slidingPressed && isGrounded && slideCooldown <= 0)
         {
-            SwitchState(previousState);
+            SwitchState(MovementState.sliding);
+            return;
         }
 
-        // 3. SPRINT TOGGLE LOGIC (ONLY WHEN GROUNDED)
         if (sprintToggle && currentState == MovementState.walking)
         {
             SwitchState(MovementState.sprinting);
@@ -196,13 +199,36 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private void SwitchState(MovementState state)
     {
+        if (currentState == state || (stateLockTimer > 0f))
+        return;
+        
+        ExitState(currentState);
+
         previousState = currentState;
         currentState = state;
+
+        EnterState(state);
+
     }
 
-    private void HandleStateTransitions()
+
+    private void EnterState(MovementState state)
     {
-        // TODO: handle Enter/Exit (e.g. slide)
+        switch (state)
+        {
+            case MovementState.sliding:
+                EnterSlide();
+                break;
+        }
+    }
+    private void ExitState(MovementState state)
+    {
+        switch (state)
+        {
+            case MovementState.sliding:
+                ExitSlide();
+                break;
+        }
     }
 
     // ================= MOVEMENT =================
@@ -250,7 +276,7 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private void HandleJump()
     {
-         if (jumpPressed && isGrounded)
+        if (jumpPressed && isGrounded)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -271,13 +297,25 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private void HandleSliding()
     {
-        // TODO
+        rb.linearDamping = 0f;
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+
+        if (!slidingPressed || flatVel.magnitude < minSlideSpeed)
+        {
+            SwitchState(previousState);
+        }
     }
 
     private void HandleAirborne()
     {
-        rb.linearDamping = 0;
+        rb.linearDamping = airDrag;
         Move(walkingSpeed);
+
+        if (isGrounded)
+        {
+            SwitchState(MovementState.walking);
+        }
     }
 
     // ================= SLIDE =================
@@ -288,6 +326,10 @@ public class PlayerMovementTemp : MonoBehaviour
         capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
 
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
+
+        stateLockTimer = stateLockTime;
     }
 
     private void ExitSlide()
@@ -320,9 +362,9 @@ public class PlayerMovementTemp : MonoBehaviour
     //=====================Speed control=================================
     private void GravityAmplifier()
     {
-        if (rb.linearVelocity.y < 0f) // only when falling
+        if (rb.linearVelocity.y < 0f)
         {
-            rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
+            rb.AddForce(Vector3.down * extraGravity, ForceMode.Force);
         }
     }
 
