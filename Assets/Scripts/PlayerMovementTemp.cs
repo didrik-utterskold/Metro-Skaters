@@ -20,7 +20,6 @@ public class PlayerMovementTemp : MonoBehaviour
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
 
-
     [SerializeField] private float capsuleRadius = 0.3f;
     [SerializeField] private float standingHeight = 2f;
 
@@ -105,8 +104,7 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(horizontalInput + " " + verticalInput);
-        Debug.Log($"State: {currentState} | Grounded: {isGrounded} | Vel: {rb.linearVelocity}");
+        Debug.DrawRay(Vector3.zero, Vector3.up * 5f, Color.red, 1f);
         HandleInput();
 
         if (slideCooldown > 0f)
@@ -150,7 +148,7 @@ public class PlayerMovementTemp : MonoBehaviour
     {
         Vector3 center = groundCheck.position;
 
-        float height = standingHeight;
+        float height = standingHeight; // update this if you crouch/slide
 
         Vector3 top = center + Vector3.up * (height / 2f - capsuleRadius);
         Vector3 bottom = center - Vector3.up * (height / 2f - capsuleRadius);
@@ -367,5 +365,4 @@ public class PlayerMovementTemp : MonoBehaviour
             rb.AddForce(Vector3.down * extraGravity, ForceMode.Force);
         }
     }
-
 }
