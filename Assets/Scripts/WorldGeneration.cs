@@ -26,14 +26,17 @@ public class WorldGeneration : MonoBehaviour
        
         GameObject newChunk = Instantiate(selectedRandomChunk);
 
-        Transform startPoint = newChunk.transform.Find("BasePlate/StartPoint");
-        Transform endPoint = newChunk.transform.Find("BasePlate/EndPoint");
+        Chunk chunkData = newChunk.GetComponent<Chunk>();
+
+        Transform startPoint = chunkData.StartPoint;
+        Transform endPoint = chunkData.EndPoint;
 
         Vector3 offset = newChunk.transform.position - startPoint.position;
 
-        newChunk.transform.position = targetStartPosition + offset;
+        Vector3 fixedPosition = targetStartPosition + offset;
 
+        newChunk.transform.position = fixedPosition;
+        
         currentEndPoint = endPoint;
-
     }
 }

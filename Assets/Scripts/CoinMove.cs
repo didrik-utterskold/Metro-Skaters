@@ -21,7 +21,7 @@ public class CoinMove : MonoBehaviour
     {
         if (other.CompareTag("CoinDetector"))
         {
-            playerTransform = other.transform.root;
+            playerTransform = other.transform.root.GetChild(0);
             isAttracted = true;
         }
     }

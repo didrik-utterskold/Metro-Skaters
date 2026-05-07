@@ -5,7 +5,7 @@ public class SpawnPowerUP : MonoBehaviour
 {
     private List<GameObject> powerUps = new();
 
-    private void Awake()
+    private void Start()
     {
         powerUps.AddRange(Resources.LoadAll<GameObject>("PowerUps/"));
         SpawnPowerUp();
@@ -18,7 +18,7 @@ public class SpawnPowerUP : MonoBehaviour
         if (randomValue <= 40)
         {
             GameObject selectedRandomPowerUp = powerUps[Random.Range(0, powerUps.Count)];
-            Instantiate(selectedRandomPowerUp, transform.position, Quaternion.identity);
+            Instantiate(selectedRandomPowerUp, transform.position, Quaternion.identity, transform);
         }
     }
 }
