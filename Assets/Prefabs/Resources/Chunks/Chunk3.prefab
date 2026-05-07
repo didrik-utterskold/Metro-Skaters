@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6742087672366439690}
+  - component: {fileID: 293500300768988872}
+  - component: {fileID: 8078126227814116621}
   m_Layer: 0
   m_Name: Chunk3
   m_TagString: Untagged
@@ -54,6 +56,40 @@ Transform:
   - {fileID: 8066847243150836137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &293500300768988872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994465820388054308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f68ab7be1834c439446f552edf7f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
+  currentEndPoint: {fileID: 6147963793600349583}
+--- !u!65 &8078126227814116621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994465820388054308}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 27.791508, y: 17.46897, z: 3.617701}
+  m_Center: {x: 8.663679, y: 8.234485, z: 1.308851}
 --- !u!1001 &588758369113733550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -867,6 +903,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
+--- !u!4 &6147963793600349583 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2152511576565954363, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
+  m_PrefabInstance: {fileID: 5228315920008622772}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6161920380229718142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2093395718851470026, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
