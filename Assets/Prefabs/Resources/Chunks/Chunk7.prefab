@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3475756792876416735}
   - component: {fileID: 8729207772152125578}
-  - component: {fileID: 4086255709835524186}
-  - component: {fileID: 5188860130336670659}
   m_Layer: 0
   m_Name: Chunk7
   m_TagString: Untagged
@@ -64,40 +62,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chunk
   startPoint: {fileID: 821752731277762}
   endPoint: {fileID: 2184412315637442792}
---- !u!114 &4086255709835524186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231561516491204933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f68ab7be1834c439446f552edf7f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
-  currentEndPoint: {fileID: 2184412315637442792}
---- !u!65 &5188860130336670659
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231561516491204933}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 31.673986, y: 27.041338, z: 2.6437378}
-  m_Center: {x: -2.501504, y: 3.4416914, z: 5.6174774}
 --- !u!1001 &256659766673137619
 PrefabInstance:
   m_ObjectHideFlags: 0
