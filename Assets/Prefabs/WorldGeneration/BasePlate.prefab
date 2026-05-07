@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2093395718851470026}
   - component: {fileID: 1855657666778928792}
+  - component: {fileID: 6479377039585167141}
+  - component: {fileID: 6265159482960248033}
   m_Layer: 9
   m_Name: BasePlate
   m_TagString: Untagged
@@ -88,6 +90,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 11.979547, y: 0.37683558, z: 101.997856}
   m_Center: {x: -3.8544726, y: -0.3115822, z: -43.215736}
+--- !u!114 &6479377039585167141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692630650580380113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953a2bfb28cc1d04c8ec749f016081e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChunkTrigger
+--- !u!65 &6265159482960248033
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692630650580380113}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 52.620415, y: 45.95249, z: 3.2666554}
+  m_Center: {x: -7.669857, y: 14.57119, z: -11.788338}
 --- !u!1 &5483377825259102324
 GameObject:
   m_ObjectHideFlags: 0

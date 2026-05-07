@@ -3,24 +3,39 @@ using UnityEngine;
 
 public class WorldGeneration : MonoBehaviour
 {
-    private List<GameObject> chunks = new();
-
+    [SerializeField] private int maxLoadedChunks = 3;
     [SerializeField] private Transform currentEndPoint;
+    [SerializeField] private GameObject firstChunk;
+
+    private List<GameObject> chunks = new();
+    private Queue<GameObject> loadedChunks = new();
+
+    public static WorldGeneration Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         chunks.AddRange(Resources.LoadAll<GameObject>("Chunks/"));
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("Player"))
-        {
-            SpawnChunk(currentEndPoint.position);
-        }
+        loadedChunks.Enqueue(firstChunk);
     }
 
-    public void SpawnChunk(Vector3 targetStartPosition)
+    public void SpawnChunk()
+    {
+        SpawnChunk(currentEndPoint.position);
+    }
+
+    private void SpawnChunk(Vector3 targetStartPosition)
     {
         GameObject selectedRandomChunk = chunks[Random.Range(0, chunks.Count)];
        
@@ -38,5 +53,13 @@ public class WorldGeneration : MonoBehaviour
         newChunk.transform.position = fixedPosition;
         
         currentEndPoint = endPoint;
+
+        loadedChunks.Enqueue(newChunk);
+
+        if(loadedChunks.Count > maxLoadedChunks)
+        {
+            GameObject chunkToRemove = loadedChunks.Dequeue();
+            Destroy(chunkToRemove);
+        }
     }
 }
