@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalScale.z
@@ -18,15 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.47
+      value: 0.6089592
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.07
+      value: -0.3528402
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -47.8
+      value: 21.410637
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -95,8 +95,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.028556133, y: 0.0006627849, z: 0.0035191772}
-  m_Center: {x: -0.012429161, y: 0.000008382772, z: -0.0000000031000063}
+  m_Size: {x: 0.028556135, y: 0.0006627849, z: 0.0015417531}
+  m_Center: {x: -0.012429161, y: 0.000008382759, z: -0.00012253018}
 --- !u!1 &2346526750782873920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 460113036078043301, guid: 5b97b6075bacf7a438ec83d70c39d526, type: 3}
