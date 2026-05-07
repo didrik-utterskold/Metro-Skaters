@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3748862466546139317}
+  - component: {fileID: 2446848052675001357}
+  - component: {fileID: 4506274372719028893}
   m_Layer: 0
   m_Name: Chunk5
   m_TagString: Untagged
@@ -44,6 +46,40 @@ Transform:
   - {fileID: 7957145183071700874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2446848052675001357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148018788247732324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f68ab7be1834c439446f552edf7f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
+  currentEndPoint: {fileID: 1735914270717251810}
+--- !u!65 &4506274372719028893
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148018788247732324}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 33.693554, y: 19.538456, z: 2.2874336}
+  m_Center: {x: 0.6713085, y: 2.5241547, z: -18.646685}
 --- !u!1001 &416711656215881689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +137,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
+--- !u!4 &1735914270717251810 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2152511576565954363, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
+  m_PrefabInstance: {fileID: 416711656215881689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1784913484777260307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2093395718851470026, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}

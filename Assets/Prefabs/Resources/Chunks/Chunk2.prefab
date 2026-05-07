@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7022786423734380043}
+  - component: {fileID: 7593145894738305400}
+  - component: {fileID: 6251816095151762688}
   m_Layer: 0
   m_Name: Chunk2
   m_TagString: Untagged
@@ -47,6 +49,40 @@ Transform:
   - {fileID: 7307079512195925620}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7593145894738305400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827358585942804203}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 35.333244, y: 23.140749, z: 6.99868}
+  m_Center: {x: 2.0078087, y: 1.8938341, z: 10.631218}
+--- !u!114 &6251816095151762688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827358585942804203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f68ab7be1834c439446f552edf7f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
+  currentEndPoint: {fileID: 7253254922677534512}
 --- !u!1001 &16397565158923677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -985,6 +1021,11 @@ PrefabInstance:
 --- !u!4 &7240311983102896833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2093395718851470026, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
+  m_PrefabInstance: {fileID: 8752742800122775563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7253254922677534512 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2152511576565954363, guid: 24d847652bb887243818c9b98e9a9b78, type: 3}
   m_PrefabInstance: {fileID: 8752742800122775563}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9134943734560158830

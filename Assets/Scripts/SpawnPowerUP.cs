@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class SpawnPowerUP : MonoBehaviour
 {
-    List<GameObject> PowerUps = new();
-
-    GameObject selectedRandomPowerUp;
+    private List<GameObject> powerUps = new();
 
     private void Awake()
     {
-        PowerUps.AddRange(Resources.LoadAll<GameObject>("PowerUps/"));
+        powerUps.AddRange(Resources.LoadAll<GameObject>("PowerUps/"));
         SpawnPowerUp();
     }
 
@@ -19,7 +17,7 @@ public class SpawnPowerUP : MonoBehaviour
         int randomValue = Random.Range(0, 100);
         if (randomValue <= 40)
         {
-            selectedRandomPowerUp = PowerUps[Random.Range(0, PowerUps.Count)];
+            GameObject selectedRandomPowerUp = powerUps[Random.Range(0, powerUps.Count)];
             Instantiate(selectedRandomPowerUp, transform.position, Quaternion.identity);
         }
     }

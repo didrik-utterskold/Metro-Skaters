@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
 
     private float powerUpTimeRemaining;
 
+    private bool initialised = false;
+
     private void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -20,11 +22,14 @@ public class UIController : MonoBehaviour
         coinsLabel = root.Q<Label>("coins-label");
         multiplierLabel = root.Q<Label>("multiplier-label");
         powerUpTimerLabel = root.Q<Label>("powerup-timer-label");
-        UpdateUI();
+
+        initialised = true;
     }
 
     private void UpdateUI()
     {
+        if (!initialised) return;
+
         currentScoreLabel.text = "Score: " + ScoreManager.Instance.GetCurrentScore();
         highScoreLabel.text = "High Score: " + ScoreManager.Instance.GetHighScore();
         coinsLabel.text = "Coins: " + ScoreManager.Instance.GetCoinCount();
