@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(Vector3.zero, Vector3.up * 5f, Color.red, 1f);
+        Debug.Log("IsGrounded: " + isGrounded);
         HandleInput();
 
         if (slideCooldown > 0f)
