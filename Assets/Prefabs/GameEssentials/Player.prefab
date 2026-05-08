@@ -385,15 +385,17 @@ MonoBehaviour:
   orientation: {fileID: 6521747995044250073}
   capsuleCollider: {fileID: 346199602808820129}
   groundCheck: {fileID: 1888136991904328769}
-  groundRadius: 0.2
-  groundLength: 0.3
+  groundDistance: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
+  capsuleRadius: 0.3
+  standingHeight: 2
   jumpForce: 5
-  slideForce: 0
-  slideFriction: 0
-  minSlideSpeed: 0
+  extraGravity: 10
+  slideForce: 4
+  slideFriction: 8
+  minSlideSpeed: 0.1
   slideHeight: 0.5
   slideCooldownTime: 0.2
   jump:
@@ -496,6 +498,7 @@ MonoBehaviour:
       m_Action: Slide
       m_Flags: 0
     m_Flags: 0
+  stateLockTime: 0.15
 --- !u!114 &3694598173625596510
 MonoBehaviour:
   m_ObjectHideFlags: 0
