@@ -4,7 +4,7 @@ using static Collectable;
 public class ShoesBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;
-    private float jumpBoost = 10f;
+    [SerializeField] private float jumpBoost = 10f;
     private float duration = 10f;
 
     private void Start()

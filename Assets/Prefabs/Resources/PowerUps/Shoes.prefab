@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce37ff6b5ba19494ebcc5e483a0438b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerMovement: {fileID: 0}
+  jumpBoost: 15
 --- !u!82 &6467864151543663388
 AudioSource:
   m_ObjectHideFlags: 0

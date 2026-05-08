@@ -391,8 +391,8 @@ MonoBehaviour:
     m_Bits: 512
   capsuleRadius: 0.3
   standingHeight: 2
-  jumpForce: 5
-  extraGravity: 10
+  jumpForce: 10
+  extraGravity: 15
   slideForce: 4
   slideFriction: 8
   minSlideSpeed: 0.1

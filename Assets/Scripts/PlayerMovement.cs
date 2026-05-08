@@ -354,7 +354,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator JumpBoostCoroutine(float duration)
     {
         yield return new WaitForSeconds(duration);
-        jumpForce = 5f;
+        jumpForce = 10f;
     }
 
     //=====================Speed control=================================
