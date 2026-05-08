@@ -1,24 +1,26 @@
 # DD1349-projinda
 
 ## Overview
-This is a game made for the course DD1349-projinda, created by didrik-utterskold and I-am-fork. It is being developed with the Unity Game Engine using the standard libraries it provides. 
+This is a game made for the course DD1349-projinda, created by @didrik-utterskold and @I-am-fork. It is being developed with the Unity Game Engine using the standard libraries it provides. 
 
 ## Description of Game
 The game is a First-Person Runner, reminiscent of the classic mobile game Subway Surfers.
-The goal is to stay alive as long as possible to increase your score by avoiding the cop chasing you and dodging obstacles. There are also coins to collect that increase a separate coin counter.
+The goal is to stay alive as long as possible to increase your score by avoiding obstacles and escaping the cop chasing you. There are also coins to collect that increase a separate coin counter.
 
 ## Development Details
 The game is created in the Unity Game Engine, which uses C# as its main programming language. There are no specific libraries that have been
-utilised; the standard libraries are more than sufficient. The game currently runs inside the Unity editor (no standalone build yet).
+utilised; the standard libraries are more than sufficient. 
+
+A standalone Windows build is available in the Releases section of this repository.
 
 ## Installation & Usage
-1. Install Unity Hub.
-2. Install Unity version 6.4 (6000.4.2f1).
-3. Clone this repository:
-   git clone https://github.com/didrik-utterskold/DD1349-projinda.git
-4. Open Unity Hub → Add Project → select the cloned folder.
-5. Open the main scene (e.g. Assets/Scenes/SampleScene.unity).
-6. Press Play in the Unity editor to run the game.
+1. Go to the Releases section of this repository.
+2. Download `MetroMove.zip`.
+3. Extract the ZIP file.
+4. Run `DD1349-projinda.exe`.
+5. Play to your heart's content!
+
+> Note: Windows may show a security warning because the game is unsigned.
 
 ## Controls
 - W/A/S/D - Move
