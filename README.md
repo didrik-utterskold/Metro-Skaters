@@ -1,7 +1,7 @@
 # DD1349-projinda
 
 ## Overview
-This is a game made for the course DD1349-projinda, created by @didrik-utterskold and @I-am-fork. It is being developed with the Unity Game Engine using the standard libraries it provides. 
+This is a game made for the course DD1349-projinda, created by didrik-utterskold and I-am-fork. It is being developed with the Unity Game Engine using the standard libraries it provides. 
 
 ## Description of Game
 The game is a First-Person Runner, reminiscent of the classic mobile game Subway Surfers.
