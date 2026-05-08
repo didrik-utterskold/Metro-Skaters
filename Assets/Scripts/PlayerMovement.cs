@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Abilities")]
     private Coroutine jumpBoostCoroutine;
 
+
+//establishes Rigid body and startup state
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -83,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentState = MovementState.walking;
     }
-
+// Enables inputs
     private void OnEnable()
     {
         movementInput.Enable();
@@ -91,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         sprint.Enable();
         slide.Enable();
     }
-
+// Kills inputs
     private void OnDisable()
     {
         movementInput.Disable();
@@ -99,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         sprint.Disable();
         slide.Disable();
     }
-
+// Keeps track of timers and handles input, everything that needs to be done in real time.
     private void Update()
     {
         Debug.Log("IsGrounded: " + isGrounded);
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         if (stateLockTimer > 0f)
             stateLockTimer -= Time.deltaTime;
     }
-
+// Handles input-based physics, UpdateState() + HandleMovement() enables all movement
     private void FixedUpdate()
     {
         GroundDetection();
@@ -124,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ================= INPUT =================
-
+// Tracks movement inputs and toggles
     private void HandleInput()
     {
         Vector2 input = movementInput.ReadValue<Vector2>();
@@ -141,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ================= GROUND =================
-
+// Capsule cast ground detection through a child object "GroundCheck" attached to player obj in unity
     private void GroundDetection()
     {
         Vector3 center = groundCheck.position;
@@ -161,10 +163,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ================= STATE =================
-
+// Handles all (-crouch) state entries through priority based on which is more important
     private void UpdateState()
     {
-
+        // if not grounded -> Airborne, the most important check
         if (!isGrounded)
         {
             if (currentState != MovementState.airborne)
@@ -172,19 +174,13 @@ public class PlayerMovement : MonoBehaviour
 
             return;
         }
-
+        // If slide is valid change state to sliding
         if (slidingPressed && isGrounded && slideCooldown <= 0 && currentState != MovementState.crouching)
         {
             SwitchState(MovementState.sliding);
             return;
         } 
-        else if (slidingPressed && isGrounded)
-        {
-            SwitchState(MovementState.crouching);
-            return;
-        }
-
-
+        // sprint toggle handler
         if (sprintToggle && currentState == MovementState.walking)
         {
             SwitchState(MovementState.sprinting);
@@ -198,12 +194,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
+// Handles all state switching, stores prev state in variable
     private void SwitchState(MovementState state)
     {
         if (currentState == state || (stateLockTimer > 0f))
         return;
-        
+        //Checks if the new state has any on-entry or the old one has any on-exit conditions
         ExitState(currentState);
 
         previousState = currentState;
@@ -213,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
+// Just a switch triggering on-entry scripts
     private void EnterState(MovementState state)
     {
         switch (state)
@@ -226,6 +222,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+// same as prev but for exits
     private void ExitState(MovementState state)
     {
         switch (state)
@@ -240,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ================= MOVEMENT =================
-
+// Decides which movement script to use depending on current state
     private void HandleMovement()
     {
         switch (currentState)
@@ -266,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
             break;
         }
     }
-
+// Move character in direction set by WASD with a set speed that is the input
     private void Move(float speed)
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -285,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
+// As jump is basically just applying a force its when player presses jump we apply that force
     private void HandleJump()
     {
         if (jumpPressed && isGrounded)
@@ -306,13 +303,14 @@ public class PlayerMovement : MonoBehaviour
         rb.linearDamping = groundDrag;
         Move(sprintingSpeed);
     }
-
+// Handles movement in slide, linear damping to zero and locks movement in the direction it was pre-slide
     private void HandleSliding()
     {
         rb.linearDamping = 0f;
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
 
+// continues until sliding isnt pressed or the speed is low enough to enter crouch
         if (!slidingPressed)
         {
             SwitchState(previousState);
@@ -333,6 +331,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Crouch is basically walk with its own speed and its own exit condition
     private void HandleCrouching()
     {
         rb.linearDamping = groundDrag;
@@ -347,27 +346,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void EnterSlide()
     {
+        //Adjusts capsule height for slide hitbox
         capsuleCollider.height = slideHeight;
         capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
-
+        //adds a small boost downwards as the deform will make player airborne
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        //Records old movespeed, applies a boost and off we go
         Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
 
+        //statelock so that the short period of airborne from the bean adjustment wont mess with states
         stateLockTimer = stateLockTime;
     }
 
     //use exit slide to exit crouch because we want to do the exact same thing anyway
     private void ExitSlide()
     {
+        //readjusts capsule height
         capsuleCollider.height = normalHeight;
         capsuleCollider.center = normalCenter;
 
+        //slide cooldown so we cant spam slide
         slideCooldown = slideCooldownTime;
     }
 
     private void EnterCrouch()
     {
+        // as exit slide currently will run when crouch is enabled, readjust capusle height, a little scuffed but eh
         capsuleCollider.height = slideHeight;
         capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
     }
@@ -392,8 +397,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //=====================Speed control=================================
+    //Jump is a little floaty with lineardamping applying to all axes, so this grav amp helps reduce it
     private void GravityAmplifier()
     {
+        //only add force when falling
         if (rb.linearVelocity.y < 0f)
         {
             rb.AddForce(Vector3.down * extraGravity, ForceMode.Force);
