@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Diagnostics.CodeAnalysis;
-using UnityEditorInternal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
 
     [SerializeField] private float capsuleRadius = 0.3f;

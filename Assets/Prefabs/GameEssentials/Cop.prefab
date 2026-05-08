@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CopBehaviour
   playerLocation: {fileID: 0}
-  speed: 0
+  speed: 5
