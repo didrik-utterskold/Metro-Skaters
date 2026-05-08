@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
+    [SerializeField] private float crouchSpeed;
     [SerializeField] private float airDrag;
     [SerializeField] private float groundDrag = 4;
     [SerializeField] private Transform orientation;
@@ -52,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         walking,
         sprinting,
         sliding,
-        airborne
+        airborne,
+        crouching
     }
 
     private MovementState currentState;
@@ -171,11 +173,17 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (slidingPressed && isGrounded && slideCooldown <= 0)
+        if (slidingPressed && isGrounded && slideCooldown <= 0 && currentState != MovementState.crouching)
         {
             SwitchState(MovementState.sliding);
             return;
+        } 
+        else if (slidingPressed && isGrounded)
+        {
+            SwitchState(MovementState.crouching);
+            return;
         }
+
 
         if (sprintToggle && currentState == MovementState.walking)
         {
@@ -213,6 +221,9 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.sliding:
                 EnterSlide();
                 break;
+            case MovementState.crouching:
+                EnterCrouch();
+                break;
         }
     }
     private void ExitState(MovementState state)
@@ -220,6 +231,9 @@ public class PlayerMovement : MonoBehaviour
         switch (state)
         {
             case MovementState.sliding:
+                ExitSlide();
+                break;
+            case MovementState.crouching:
                 ExitSlide();
                 break;
         }
@@ -246,6 +260,10 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.airborne:
                 HandleAirborne();
                 break;
+            
+            case MovementState.crouching:
+            HandleCrouching();
+            break;
         }
     }
 
@@ -295,9 +313,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
 
-        if (!slidingPressed || flatVel.magnitude < minSlideSpeed)
+        if (!slidingPressed)
         {
             SwitchState(previousState);
+        } else if (flatVel.magnitude < minSlideSpeed)
+        {
+            SwitchState(MovementState.crouching);
         }
     }
 
@@ -312,7 +333,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // ================= SLIDE =================
+    private void HandleCrouching()
+    {
+        rb.linearDamping = groundDrag;
+        Move(crouchSpeed);
+        if (!slidingPressed)
+        {
+            SwitchState(MovementState.walking);
+        }
+    }
+
+    // ================= SLIDE/CROUCH =================
 
     private void EnterSlide()
     {
@@ -326,12 +357,19 @@ public class PlayerMovement : MonoBehaviour
         stateLockTimer = stateLockTime;
     }
 
+    //use exit slide to exit crouch because we want to do the exact same thing anyway
     private void ExitSlide()
     {
         capsuleCollider.height = normalHeight;
         capsuleCollider.center = normalCenter;
 
         slideCooldown = slideCooldownTime;
+    }
+
+    private void EnterCrouch()
+    {
+        capsuleCollider.height = slideHeight;
+        capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
     }
 
     // ================= ABILITIES =================
