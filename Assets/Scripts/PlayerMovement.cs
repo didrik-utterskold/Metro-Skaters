@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Diagnostics.CodeAnalysis;
+using UnityEditorInternal;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Using headers to organise the variables in the inspector
     [Header("Movement")]
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
@@ -12,16 +14,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDrag = 4;
     [SerializeField] private Transform orientation;
     [SerializeField] private CapsuleCollider capsuleCollider;
-    private float moveSpeed;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundRadius;
-    [SerializeField] private float groundLength;
+    [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
+
+    [SerializeField] private float capsuleRadius = 0.3f;
+    [SerializeField] private float standingHeight = 2f;
 
     [Header("Jumping")]
     [SerializeField] private float jumpForce = 5f;
+
+    [SerializeField] private float extraGravity = 10f;
 
     [Header("Sliding")]
     [SerializeField] private float slideForce;
@@ -31,51 +36,54 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float slideCooldownTime = 0.2f;
 
     [Header("Input")]
-    [SerializeField] InputAction jump;
-    [SerializeField] InputAction movementInput;
-    [SerializeField] InputAction sprint;
-    [SerializeField] InputAction slide;
-
+    [SerializeField] private InputAction jump;
+    [SerializeField] private InputAction movementInput;
+    [SerializeField] private InputAction sprint;
+    [SerializeField] private InputAction slide;
 
     [Header("Input State")]
     private float horizontalInput;
     private float verticalInput;
     private bool slidingPressed;
-    private bool jumpingPressed;
-    
-    [Header("Movement State")]
-    //temp while setting up statesystem
-    private bool isSprinting;
-    private bool isSliding;
-    private bool isGrounded;
-    
-    public enum MovementState {
+    private bool jumpPressed;
+    private bool sprintToggle;
+
+    [Header("State")]
+    private float stateLockTimer;
+    [SerializeField] private float stateLockTime = 0.15f;
+    public enum MovementState
+    {
         walking,
         sprinting,
         sliding,
         airborne
     }
+
     private MovementState currentState;
-    
+    private MovementState previousState;
+
+    [Header("Runtime References")]
+    private Vector3 moveDirection;
+    private Rigidbody rb;
+    private bool isGrounded;
+
     [Header("Slide State")]
     private float slideCooldown;
     private float normalHeight;
     private Vector3 normalCenter;
 
-    [Header("Runtime References")]
-    private Vector3 moveDirection;
-    private Rigidbody rb;
-    
     [Header("Abilities")]
     private Coroutine jumpBoostCoroutine;
-
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
         normalHeight = capsuleCollider.height;
         normalCenter = capsuleCollider.center;
+
+        currentState = MovementState.walking;
     }
 
     private void OnEnable()
@@ -96,110 +104,242 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Debug.DrawRay(Vector3.zero, Vector3.up * 5f, Color.red, 1f);
         HandleInput();
+
         if (slideCooldown > 0f)
-        slideCooldown -= Time.deltaTime;
+            slideCooldown -= Time.deltaTime;
+
+        if (stateLockTimer > 0f)
+            stateLockTimer -= Time.deltaTime;
     }
 
-    // Run every physics update
     private void FixedUpdate()
     {
         GroundDetection();
-        HandleSlideRequest();
-        HandleState();
-        MovePlayer();
-        HandleSliding();
-        HandleDrag();
-        HandleJumping();
-        SpeedControl();
+        HandleJump();
+        GravityAmplifier();
+
+        UpdateState();
+
+        HandleMovement();
     }
 
-    private void GroundDetection()
-    {
-        bool isTouching = isGrounded = Physics.CheckSphere(groundCheck.position, groundRadius, whatIsGround);
-
-        bool isBelow = isGrounded = Physics.SphereCast(
-            groundCheck.position,
-            groundRadius,
-            Vector3.down,
-            out RaycastHit hit,
-            groundLength,
-            whatIsGround,
-            QueryTriggerInteraction.Ignore
-        );
-
-        isGrounded = isTouching || isBelow;
-    }
+    // ================= INPUT =================
 
     private void HandleInput()
     {
-        Vector2 movementInput = this.movementInput.ReadValue<Vector2>();
-        horizontalInput = movementInput.x;
-        verticalInput = movementInput.y;
+        Vector2 input = movementInput.ReadValue<Vector2>();
+        horizontalInput = input.x;
+        verticalInput = input.y;
+
         slidingPressed = slide.IsPressed();
-        jumpingPressed = jump.IsPressed();
-        if (sprint.WasPressedThisFrame()) {isSprinting = !isSprinting;}
+        jumpPressed = jump.IsPressed();
+
+        if (sprint.WasPressedThisFrame())
+            {
+                sprintToggle = !sprintToggle;
+            }
     }
 
-    private void MovePlayer()
+    // ================= GROUND =================
+
+    private void GroundDetection()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 center = groundCheck.position;
+
+        float height = standingHeight;
+
+        Vector3 top = center + Vector3.up * (height / 2f - capsuleRadius);
+        Vector3 bottom = center - Vector3.up * (height / 2f - capsuleRadius);
+
+        isGrounded = Physics.CheckCapsule(
+            bottom,
+            top,
+            capsuleRadius,
+            whatIsGround,
+            QueryTriggerInteraction.Ignore
+        );
+    }
+
+    // ================= STATE =================
+
+    private void UpdateState()
+    {
+
+        if (!isGrounded)
+        {
+            if (currentState != MovementState.airborne)
+                SwitchState(MovementState.airborne);
+
+            return;
+        }
+
+        if (slidingPressed && isGrounded && slideCooldown <= 0)
+        {
+            SwitchState(MovementState.sliding);
+            return;
+        }
+
+        if (sprintToggle && currentState == MovementState.walking)
+        {
+            SwitchState(MovementState.sprinting);
+            return;
+        }
+
+        if (!sprintToggle && currentState == MovementState.sprinting)
+        {
+            SwitchState(MovementState.walking);
+            return;
+        }
+
+    }
+
+    private void SwitchState(MovementState state)
+    {
+        if (currentState == state || (stateLockTimer > 0f))
+        return;
         
+        ExitState(currentState);
+
+        previousState = currentState;
+        currentState = state;
+
+        EnterState(state);
+
+    }
+
+
+    private void EnterState(MovementState state)
+    {
+        switch (state)
+        {
+            case MovementState.sliding:
+                EnterSlide();
+                break;
+        }
+    }
+    private void ExitState(MovementState state)
+    {
+        switch (state)
+        {
+            case MovementState.sliding:
+                ExitSlide();
+                break;
+        }
+    }
+
+    // ================= MOVEMENT =================
+
+    private void HandleMovement()
+    {
         switch (currentState)
         {
             case MovementState.walking:
-                moveSpeed = walkingSpeed;
+                HandleWalking();
                 break;
 
             case MovementState.sprinting:
-                moveSpeed = sprintingSpeed;
+                HandleSprinting();
                 break;
 
             case MovementState.sliding:
-                return;
+                HandleSliding();
+                break;
+
+            case MovementState.airborne:
+                HandleAirborne();
+                break;
+        }
+    }
+
+    private void Move(float speed)
+    {
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if (moveDirection.sqrMagnitude > 1f)
+            moveDirection.Normalize();
+
+        rb.AddForce(moveDirection * speed * 10f, ForceMode.Force);
+
+        Vector3 flatVel = new(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        if (flatVel.magnitude > speed)
+        {
+            Vector3 limitedVel = flatVel.normalized * speed;
+            rb.linearVelocity = new(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
 
-        rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
     }
-    
-    private void HandleJumping()
+
+    private void HandleJump()
     {
-        if (jumpingPressed && isGrounded)
+        if (jumpPressed && isGrounded)
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
-    private void HandleDrag()
+    private void HandleWalking()
     {
-        if (isSliding) 
+        rb.linearDamping = groundDrag;
+        Move(walkingSpeed);
+    }
+
+    private void HandleSprinting()
+    {
+        rb.linearDamping = groundDrag;
+        Move(sprintingSpeed);
+    }
+
+    private void HandleSliding()
+    {
+        rb.linearDamping = 0f;
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
+
+        if (!slidingPressed || flatVel.magnitude < minSlideSpeed)
         {
-            return;
+            SwitchState(previousState);
         }
+    }
+
+    private void HandleAirborne()
+    {
+        rb.linearDamping = airDrag;
+        Move(walkingSpeed);
+
         if (isGrounded)
         {
-            rb.linearDamping = groundDrag;
-        }
-        else
-        {
-            rb.linearDamping = airDrag;
+            SwitchState(MovementState.walking);
         }
     }
 
-    // Limit the speed within reasonable intervals
-    private void SpeedControl() {           
-       if (isSliding) return;
+    // ================= SLIDE =================
 
-        Vector3 flatVel = new(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+    private void EnterSlide()
+    {
+        capsuleCollider.height = slideHeight;
+        capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
 
-        if (flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.linearVelocity = new(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
-        }
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
+
+        stateLockTimer = stateLockTime;
     }
 
-    // Method to set the jump boost effect, allowing for temporary increases in jump height
+    private void ExitSlide()
+    {
+        capsuleCollider.height = normalHeight;
+        capsuleCollider.center = normalCenter;
+
+        slideCooldown = slideCooldownTime;
+    }
+
+    // ================= ABILITIES =================
+
     public void SetJumpBoost(float jumpBoost, float duration)
     {
         if (jumpBoostCoroutine != null)
@@ -211,91 +351,18 @@ public class PlayerMovement : MonoBehaviour
         jumpBoostCoroutine = StartCoroutine(JumpBoostCoroutine(duration));
     }
 
-    // Coroutine to reset the jump force after the duration of the jump boost effect has expired
     private IEnumerator JumpBoostCoroutine(float duration)
     {
         yield return new WaitForSeconds(duration);
         jumpForce = 5f;
     }
-    
-    private void StartSlide()
+
+    //=====================Speed control=================================
+    private void GravityAmplifier()
     {
-        if (slideCooldown > 0f) return;
-        rb.linearDamping = 0f;
-        isSliding = true;
-        capsuleCollider.height = slideHeight;
-        capsuleCollider.center = new Vector3(0f, slideHeight / 2f, 0f);
-
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-         rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
-
-    }
-
-    private void StopSlide()
-    {
-        isSliding = false;
-        capsuleCollider.height = normalHeight;
-        capsuleCollider.center = normalCenter;
-        slideCooldown = slideCooldownTime;
-
-    }
-
-    private void HandleSliding()
-    {
-
-        if (!isSliding) return;
-
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-        if (!slidingPressed || flatVel.magnitude < minSlideSpeed)
+        if (rb.linearVelocity.y < 0f)
         {
-            StopSlide();
-            return;
-        }
-
-        rb.AddForce(-flatVel.normalized * slideFriction, ForceMode.Force);
-    }
-
-    private void HandleState()
-    {
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
-        if (!isGrounded)
-        {
-            currentState = MovementState.airborne;
-            return;
-        }
-
-        if (isSliding)
-        {
-            currentState = MovementState.sliding;
-            return;
-        }
-
-        if (isSprinting && flatVel.magnitude > 0.1f)
-        {
-            currentState = MovementState.sprinting;
-            return;
-        }
-
-        currentState = MovementState.walking;
-    }
-
-    private void HandleSlideRequest()
-    {
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-        bool canSlide =
-            slidingPressed &&
-            isGrounded &&
-            flatVel.magnitude >= minSlideSpeed &&
-            slideCooldown <= 0f;
-
-        if (canSlide && !isSliding)
-        {
-            StartSlide();
+            rb.AddForce(Vector3.down * extraGravity, ForceMode.Force);
         }
     }
-
 }
