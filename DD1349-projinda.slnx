@@ -1,13 +1,4 @@
 ﻿<Solution>
-  <Project Path="Unity.InputSystem.csproj" />
-  <Project Path="UnityEngine.TestRunner.csproj" />
-  <Project Path="Unity.Multiplayer.Center.Editor.csproj" />
-  <Project Path="UnityEditor.TestRunner.csproj" />
-  <Project Path="Unity.VisualStudio.Editor.csproj" />
-  <Project Path="Unity.InputSystem.TestFramework.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="Unity.InputSystem.ForUI.csproj" />
-  <Project Path="Unity.Multiplayer.Center.Common.csproj" />
-  <Project Path="Unity.InputSystem.DocCodeSamples.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
 </Solution>
