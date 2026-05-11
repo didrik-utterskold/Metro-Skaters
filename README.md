@@ -95,6 +95,8 @@ A standalone Windows build is available in the Releases section of this reposito
 
 "Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
+"Geungnakgang Station" (https://skfb.ly/oSP8V) by Gwangju Arts & Culture Humanities Story Platform is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 "Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 "Bar Fence" (https://skfb.ly/YA7A) by paethon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
