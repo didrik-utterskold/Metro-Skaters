@@ -102,3 +102,5 @@ A standalone Windows build is available in the Releases section of this reposito
 "Bar Fence" (https://skfb.ly/YA7A) by paethon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 "Buildings" (https://skfb.ly/oSVnr) by Elbolillo is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+"Inspector (Subway Surfers)" (https://skfb.ly/oU6Hz) by thirsty-rundown3YTTTV is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
