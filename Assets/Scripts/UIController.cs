@@ -1,6 +1,7 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 
+// Connects UI Toolkit labels to live score and power-up data.
 public class UIController : MonoBehaviour
 {
     private Label currentScoreLabel;
@@ -15,6 +16,7 @@ public class UIController : MonoBehaviour
 
     private void OnEnable()
     {
+        // Cache label references by their UXML names once the document is enabled.
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         currentScoreLabel = root.Q<Label>("score-label");

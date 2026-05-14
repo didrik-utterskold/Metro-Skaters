@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Watches for losing conditions and restarts the active scene after saving score.
 public class GameState : MonoBehaviour
 {
     [SerializeField] private Transform playerLocation;

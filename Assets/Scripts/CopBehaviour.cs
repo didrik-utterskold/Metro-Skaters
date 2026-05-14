@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Simple pursuer that constantly faces and moves toward the player.
 public class CopBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform playerLocation;

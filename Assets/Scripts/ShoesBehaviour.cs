@@ -1,6 +1,7 @@
 using UnityEngine;
 using static Collectable;
 
+// Collectable effect that temporarily boosts the player's jump force.
 public class ShoesBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;

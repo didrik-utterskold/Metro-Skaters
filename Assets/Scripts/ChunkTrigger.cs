@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Requests the next world chunk when the player reaches this trigger.
 public class ChunkTrigger : MonoBehaviour
 {
 
