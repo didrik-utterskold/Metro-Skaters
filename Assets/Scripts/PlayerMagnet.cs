@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// Controls the player-side detector that attracts coins during the magnet power-up.
 public class PlayerMagnet : MonoBehaviour
 {
     [SerializeField] private GameObject coinDetector;
@@ -16,6 +17,7 @@ public class PlayerMagnet : MonoBehaviour
     {
         if (magnetCoroutine != null)
         {
+            // Restarting the coroutine refreshes the duration when another magnet is collected.
             StopCoroutine(magnetCoroutine);
         }
         magnetCoroutine = StartCoroutine(MagnetTimer());

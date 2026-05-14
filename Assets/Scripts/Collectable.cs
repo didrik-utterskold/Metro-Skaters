@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Shared collectable behavior for rotating pickup objects and applying their effects.
 public class Collectable : MonoBehaviour
 {
     // Interface that defines the method for applying the collectable's effect to the player

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Moves a coin toward the player while it is inside the magnet detector.
 public class CoinMove : MonoBehaviour
 {
     private Transform playerTransform;
@@ -21,6 +22,7 @@ public class CoinMove : MonoBehaviour
     {
         if (other.CompareTag("CoinDetector"))
         {
+            // The detector is part of the player hierarchy, so the root is used to find the player transform.
             playerTransform = other.transform.root.GetChild(0);
             isAttracted = true;
         }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Stores the connection points used to line up one generated chunk with the next.
 public class Chunk : MonoBehaviour
 {
     [SerializeField] private Transform startPoint;

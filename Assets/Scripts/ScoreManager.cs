@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// Central score state for the current run, coins, high score, and timed power-ups.
 public class ScoreManager : MonoBehaviour
 {
     private int coinCount;

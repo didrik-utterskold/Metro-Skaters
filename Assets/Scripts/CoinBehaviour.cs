@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using static Collectable;
 
+// Collectable effect for coins: updates score state and plays collection audio.
 public class CoinBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;

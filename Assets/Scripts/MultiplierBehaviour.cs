@@ -1,6 +1,7 @@
 using UnityEngine;
 using static Collectable;
 
+// Collectable effect that doubles score gain for the power-up duration.
 public class MultiplierBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;

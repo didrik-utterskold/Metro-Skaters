@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Loads available power-up prefabs and optionally spawns one at this point.
 public class SpawnPowerUP : MonoBehaviour
 {
     private List<GameObject> powerUps = new();
 
     private void Start()
     {
+        // Power-up prefabs are expected under a Resources/PowerUps folder.
         powerUps.AddRange(Resources.LoadAll<GameObject>("PowerUps/"));
         SpawnPowerUp();
     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Builds the endless path by spawning chunk prefabs and removing old chunks.
 public class WorldGeneration : MonoBehaviour
 {
     [SerializeField] private int maxLoadedChunks = 3;
@@ -22,6 +23,7 @@ public class WorldGeneration : MonoBehaviour
 
         Instance = this;
 
+        // Chunk prefabs are loaded from Resources so new level pieces can be added without code changes.
         chunks.AddRange(Resources.LoadAll<GameObject>("Chunks/"));
     }
 
@@ -46,6 +48,7 @@ public class WorldGeneration : MonoBehaviour
         Transform startPoint = chunkData.StartPoint;
         Transform endPoint = chunkData.EndPoint;
 
+        // Move the chunk so its start anchor lands exactly on the requested connection point.
         Vector3 offset = newChunk.transform.position - startPoint.position;
 
         Vector3 fixedPosition = targetStartPosition + offset;
@@ -58,6 +61,7 @@ public class WorldGeneration : MonoBehaviour
 
         if(loadedChunks.Count > maxLoadedChunks)
         {
+            // Remove the oldest chunk to keep the scene from growing forever.
             GameObject chunkToRemove = loadedChunks.Dequeue();
             Destroy(chunkToRemove);
         }

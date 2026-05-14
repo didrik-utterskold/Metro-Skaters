@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
+// Handles player locomotion, movement states, slide/crouch transitions, and jump boosts.
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private bool sprintToggle;
 
     [Header("State")]
+    // Locks state changes briefly after slide entry so collider changes do not immediately interrupt the slide.
     private float stateLockTimer;
     [SerializeField] private float stateLockTime = 0.15f;
     public enum MovementState

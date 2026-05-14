@@ -1,6 +1,7 @@
 using UnityEngine;
 using static Collectable;
 
+// Collectable effect that temporarily enables the player's coin magnet.
 public class MagnetBehaviour : MonoBehaviour, ICollectableEffect
 {
     private AudioSource audioSource;
