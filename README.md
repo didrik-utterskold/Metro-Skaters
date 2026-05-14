@@ -8,10 +8,15 @@ The game is a First-Person Runner, reminiscent of the classic mobile game Subway
 The goal is to stay alive as long as possible to increase your score by avoiding obstacles and escaping the cop chasing you. There are also coins to collect that increase a separate coin counter.
 
 ## Development Details
-The game is created in the Unity Game Engine, which uses C# as its main programming language. There are no specific libraries that have been
+The game has been created in the Unity Game Engine, which uses C# as its main programming language. There are no specific libraries that have been
 utilised; the standard libraries are more than sufficient. 
 
 A standalone Windows build is available in the Releases section of this repository.
+
+## AI Usage
+This project is been an excellent opportunity to learn, so we intentionally minimised the use of AI throughout the development process. We aimed to use AI as a *tool* rather than a *creator*. In practice, this meant using AI to explain unfamiliar concepts or Unity features and to help deepen our understanding of Unity.
+
+With this in mind, AI was occasionally used for proofreading and assisting with small parts of the documentation, such as refining individual sentences. However, the vast majority of both the project and the written material remains entirely our own creative work.
 
 ## Installation & Usage
 1. Go to the Releases section of this repository.
@@ -27,62 +32,6 @@ A standalone Windows build is available in the Releases section of this reposito
 - Space - Jump
 - Ctrl - Slide
 - Shift - Sprint
-
-# Development Progress
-### COLLECTABLES - Progress: 100% (1/1)
-| Feature              | Implemented |
-|----------------------|-------------|
-| Coins                | [x]         |
-
-### POWERUPS - Progress: 100% (3/3)
-| Feature      | Implemented |
-|--------------|-------------|
-| Jump boots   | [x]         |
-| Magnet       | [x]         |
-| Double Score | [x]         |
-
-### CHARACTERS - Progress: 100% (2/2)
-| Feature        | Implemented |
-|----------------|-------------|
-| Player         | [x]         |
-| Cop with dog   | [x]         |
-
-### UI - Progress: 100% (5/5)
-| Feature                | Implemented |
-|------------------------|-------------|
-| Score                  | [x]         |
-| Current multiplier     | [x]         |
-| Duration of Powerup    | [x]         |
-| Coin Counter           | [x]         |
-| Previous Best          | [x]         |
-
-### OBSTACLES - Progress: 83% (5/6)
-| Feature                    | Implemented |
-|----------------------------|-------------|
-| Jumpable                   | [x]         |
-| Slidable                   | [x]         |
-| Passable through both      | [x]         |
-| Stationary Trains          | [x]         |
-| Moving Trains              | [ ]         |
-| Ramps                      | [x]         |
-
-### MOVEMENT - Progress: 100% (3/3)
-| Feature         | Implemented |
-|-----------------|-------------|
-| Jumping         | [x]         |
-| Sliding         | [x]         |
-| Sprinting       | [x]         |
-
-### MISC - Progress: 0% (0/5)
-| Feature           | Implemented |
-|-------------------|-------------|
-| Narrow Passages   | [ ]         |
-| Traffic lights    | [ ]         |
-| Jetpack           | [ ]         |
-| Pogo Stick        | [ ]         |
-| Surfboard         | [ ]         |
-
-### 🔢 TOTAL PROGRESS - 76% (19/25 features complete)
 
 # Assets
 "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
