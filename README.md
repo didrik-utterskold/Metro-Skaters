@@ -14,7 +14,7 @@ utilised; the standard libraries are more than sufficient.
 A standalone Windows build is available in the Releases section of this repository.
 
 ## AI Usage
-This project is been an excellent opportunity to learn, so we intentionally minimised the use of AI throughout the development process. We aimed to use AI as a *tool* rather than a *creator*. In practice, this meant using AI to explain unfamiliar concepts or Unity features and to help deepen our understanding of Unity.
+This project has been an excellent opportunity to learn, so we intentionally minimised the use of AI throughout the development process. We aimed to use AI as a *tool* rather than a *creator*. In practice, this meant using AI to explain unfamiliar concepts or Unity features and to help deepen our understanding of Unity.
 
 With this in mind, AI was occasionally used for proofreading and assisting with small parts of the documentation, such as refining individual sentences. However, the vast majority of both the project and the written material remains entirely our own creative work.
 
@@ -34,24 +34,15 @@ With this in mind, AI was occasionally used for proofreading and assisting with 
 - Shift - Sprint
 
 # Assets
-"Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"A 2X Multiplier for Font Tales Run" (https://skfb.ly/pHoNr) by tidnara09 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Generic Cartoon Shoes" (https://skfb.ly/ou79n) by ijiklvn is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Magnet" (https://skfb.ly/6W9ZC) by aidanp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Geungnakgang Station" (https://skfb.ly/oSP8V) by Gwangju Arts & Culture Humanities Story Platform is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Bar Fence" (https://skfb.ly/YA7A) by paethon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Buildings" (https://skfb.ly/oSVnr) by Elbolillo is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Inspector (Subway Surfers)" (https://skfb.ly/oU6Hz) by thirsty-rundown3YTTTV is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Stylized Coin" (https://skfb.ly/oppHG) by BarracudaByte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "A 2X Multiplier for Font Tales Run" (https://skfb.ly/pHoNr) by tidnara09 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Generic Cartoon Shoes" (https://skfb.ly/ou79n) by ijiklvn is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Magnet" (https://skfb.ly/6W9ZC) by aidanp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Concrete Barrier" (https://skfb.ly/otw8Y) by YadroGames is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Geungnakgang Station" (https://skfb.ly/oSP8V) by Gwangju Arts & Culture Humanities Story Platform is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Barrier" (https://skfb.ly/ouOPs) by TridentCorp is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Bar Fence" (https://skfb.ly/YA7A) by paethon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Buildings" (https://skfb.ly/oSVnr) by Elbolillo is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Inspector (Subway Surfers)" (https://skfb.ly/oU6Hz) by thirsty-rundown3YTTTV is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 All animations have been provided by Mixamo.
