@@ -7,8 +7,10 @@ public class CopBehaviour : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(playerLocation);
+        Vector3 targetPosition = playerLocation.position;
 
-        transform.position = Vector3.MoveTowards(transform.position, playerLocation.position, speed * Time.deltaTime);
+        transform.LookAt(targetPosition);
+
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
 }
