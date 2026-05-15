@@ -9,8 +9,9 @@ public class UIController : MonoBehaviour
     private Label coinsLabel;
     private Label multiplierLabel;
     private Label powerUpTimerLabel;
+    private VisualElement powerUpContainer;
 
-    private float powerUpTimeRemaining;
+    
 
     private bool initialised = false;
 
@@ -24,6 +25,7 @@ public class UIController : MonoBehaviour
         coinsLabel = root.Q<Label>("coins-label");
         multiplierLabel = root.Q<Label>("multiplier-label");
         powerUpTimerLabel = root.Q<Label>("powerup-timer-label");
+        powerUpContainer = root.Q<VisualElement>("powerup-container");
 
         initialised = true;
     }
@@ -32,26 +34,23 @@ public class UIController : MonoBehaviour
     {
         if (!initialised) return;
 
-        currentScoreLabel.text = "Score: " + ScoreManager.Instance.GetCurrentScore();
+        currentScoreLabel.text = "" + ScoreManager.Instance.GetCurrentScore();
         highScoreLabel.text = "High Score: " + ScoreManager.Instance.GetHighScore();
-        coinsLabel.text = "Coins: " + ScoreManager.Instance.GetCoinCount();
-        multiplierLabel.text = "Multiplier: x" + ScoreManager.Instance.GetMultiplier();
+        coinsLabel.text = "" + ScoreManager.Instance.GetCoinCount();
+        multiplierLabel.text = "x" + ScoreManager.Instance.GetMultiplier();
 
-        powerUpTimeRemaining = ScoreManager.Instance.GetPowerUpTimeRemaining();
+        float powerUpTimeRemaining = ScoreManager.Instance.GetPowerUpTimeRemaining();
 
         if (powerUpTimeRemaining > 0f)
         {
             powerUpTimerLabel.text = "Power-Up Time: " + powerUpTimeRemaining.ToString("F1") + "s";
-            powerUpTimerLabel.style.display = DisplayStyle.Flex;
+            powerUpContainer.style.display = DisplayStyle.Flex;
         }
         else
         {
-            powerUpTimerLabel.style.display = DisplayStyle.None;
+            powerUpContainer.style.display = DisplayStyle.None;
         }
     }
 
-    private void Update()
-    {
-            UpdateUI();
-    }
+    private void Update() => UpdateUI();
 }

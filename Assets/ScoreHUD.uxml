@@ -1,10 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/ScoreHUD.uss?fileID=7433441132597879392&amp;guid=c42e0058277474346bec2aa7ca5909b9&amp;type=3#ScoreHUD"/>
-    <ui:VisualElement name="hud-root" class="hud-root">
-        <ui:Label name="score-label" text="Score: 0" class="hud-label"/>
-        <ui:Label name="highscore-label" text="High Score: 0" class="hud-label"/>
-        <ui:Label name="coins-label" text="Coins: 0" class="hud-label"/>
-        <ui:Label name="multiplier-label" text="Multiplier: x1" class="hud-label"/>
-        <ui:Label name="powerup-timer-label" text="" class="hud-label powerup-timer"/>
+    <ui:VisualElement name="screen-root" class="screen-root">
+        <ui:VisualElement name="top-bar" class="top-bar">
+            <ui:Label name="highscore-label" text="High Score: 0" class="hud-label highscore-label"/>
+            <ui:Label name="score-label" text="0" class="hud-label score-label"/>
+            <ui:Label name="multiplier-label" text="x1" class="hud-label multiplier-label"/>
+            <ui:VisualElement class="coins-group">
+                <ui:VisualElement name="coin-icon" class="coin-icon" style="background-image: url(&quot;project://database/Assets/image-removebg-preview.png?fileID=2800000&amp;guid=e591fe1b56eb75e4baed2065a808a42a&amp;type=3#image-removebg-preview&quot;); background-position-x: center;"/>
+                <ui:Label name="coins-label" text="0" class="hud-label"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="right-panel" class="right-panel">
+            <ui:VisualElement name="powerup-container" class="powerup-container">
+                <ui:Label name="powerup-timer-label" text="" class="hud-label powerup-timer"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
