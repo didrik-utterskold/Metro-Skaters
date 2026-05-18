@@ -1,15 +1,19 @@
-# DD1349-projinda
+# Metro Skaters - Endless Runner
 
 ## Overview
-This is a game made for the course DD1349-projinda, created by didrik-utterskold and I-am-fork. It is being developed with the Unity Game Engine using the standard libraries it provides. 
+Metro Skaters is a first-person endless runner developed for the course *DD1349-projinda* by **didrik-utterskold** and **I-am-fork**. 
 
-## Description of Game
-The game is a First-Person Runner, reminiscent of the classic mobile game Subway Surfers.
-The goal is to stay alive as long as possible to increase your score by avoiding obstacles and escaping the cop chasing you. There are also coins to collect that increase a separate coin counter.
+The game was built in the Unity Game Engine using C# and Unity's standard libraries. 
+
+## Game Description
+Metro Skaters is a fast-paced first-person endless runner inspired by classics such as Subway Surfers.
+
+Your objective is simple: survive for as long as possible while avoiding obstacles, collecting coins, and escaping the relentless cop chasing you through the metro.
+
+The longer you survive, the higher your score becomes. Coins collected during each run contribute to a separate coin counter.
 
 ## Development Details
-The game has been created in the Unity Game Engine, which uses C# as its main programming language. There are no specific libraries that have been
-utilised; the standard libraries are more than sufficient. 
+The game was developed in Unity using C# as the primary programming language. No external libraries were required, as Unity’s built-in functionality was sufficient for the project’s needs.
 
 A standalone Windows build is available in the Releases section of this repository.
 
@@ -20,10 +24,10 @@ With this in mind, AI was occasionally used for proofreading and assisting with 
 
 ## Installation & Usage
 1. Go to the Releases section of this repository.
-2. Download `MetroMove.zip`.
+2. Download `MetroSkaters.zip`.
 3. Extract the ZIP file.
-4. Run `DD1349-projinda.exe`.
-5. Play to your heart's content!
+4. Run `MetroSkaters.exe`.
+5. Start skating!
 
 > Note: Windows may show a security warning because the game is unsigned.
 
@@ -45,4 +49,4 @@ With this in mind, AI was occasionally used for proofreading and assisting with 
 - "Buildings" (https://skfb.ly/oSVnr) by Elbolillo is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - "Inspector (Subway Surfers)" (https://skfb.ly/oU6Hz) by thirsty-rundown3YTTTV is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
-All animations have been provided by Mixamo.
+All animations were provided by Mixamo.
