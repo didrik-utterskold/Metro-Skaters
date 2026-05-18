@@ -32,15 +32,15 @@ public class GameState : MonoBehaviour
     private void SaveAndReset() 
     {
         ScoreManager.Instance.SaveHighScore();
-        //unlock cursor
+        // Unlock cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         ResetScene();
     }
-    //load main menu
+    // Load main menu
     private void ResetScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
