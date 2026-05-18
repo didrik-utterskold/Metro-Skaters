@@ -14,11 +14,15 @@ public class GameState : MonoBehaviour
     private void Caught() 
     {
         ScoreManager.Instance.SaveHighScore();
+        //unlock cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         ResetScene();
     }
-
+    //load main menu
     private void ResetScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
     }
 }
