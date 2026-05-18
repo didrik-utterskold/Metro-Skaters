@@ -1,16 +1,15 @@
 # Metro Skaters - Endless Runner
 
 ## Overview
-Metro Skaters is a first-person endless runner developed for the course *DD1349-projinda* by **didrik-utterskold** and **I-am-fork**. 
-
-The game was built in the Unity Game Engine using C# and Unity's standard libraries. 
+Metro Skaters is a first-person endless runner developed for the course *DD1349-projinda* by **didrik-utterskold** and **I-am-fork**. The game was built in the Unity Game Engine using C# and Unity's standard libraries. 
 
 ## Game Description
-Metro Skaters is a fast-paced first-person endless runner inspired by classics such as Subway Surfers.
+Metro Skaters is a fast-paced first-person endless runner inspired by classics such as Subway Surfers. 
 
-Your objective is simple: survive for as long as possible while avoiding obstacles, collecting coins, and escaping the relentless cop chasing you through the metro.
+Your objective is simple: survive for as long as possible while avoiding obstacles, collecting coins, and escaping the relentless cop chasing you through the metro. The longer you survive, the higher your score becomes. Coins collected during each run contribute to a separate coin counter.
 
-The longer you survive, the higher your score becomes. Coins collected during each run contribute to a separate coin counter.
+## Game Demo
+https://github.com/user-attachments/assets/2039f070-093a-4bd1-9d77-7d06b5562d86
 
 ## Development Details
 The game was developed in Unity using C# as the primary programming language. No external libraries were required, as Unity’s built-in functionality was sufficient for the project’s needs.
