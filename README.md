@@ -49,3 +49,6 @@ With this in mind, AI was occasionally used for proofreading and assisting with 
 - "Inspector (Subway Surfers)" (https://skfb.ly/oU6Hz) by thirsty-rundown3YTTTV is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 All animations were provided by Mixamo.
+
+Sound effects and music used in this project are from Subway Surfers.
+All rights to the original audio assets belong to SYBO and their respective rights holders.
