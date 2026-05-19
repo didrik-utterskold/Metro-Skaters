@@ -381,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   walkingSpeed: 7
   sprintingSpeed: 12
+  crouchSpeed: 4
   airDrag: 2
   groundDrag: 10
   orientation: {fileID: 6521747995044250073}
@@ -511,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f146c383f948f8545ae94f91e1e4239c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameState
+  playerLocation: {fileID: 4503283452911926699}
 --- !u!82 &4437974146068123448
 AudioSource:
   m_ObjectHideFlags: 0
